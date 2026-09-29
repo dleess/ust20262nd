@@ -1,0 +1,54 @@
+{
+  "HD2018": {
+    "title": "Hollingsworth & Dror (2018) Molecular Dynamics Simulation for All · Neuron 99:1129–1143",
+    "url": "https://doi.org/10.1016/j.neuron.2018.08.011"
+  },
+  "HWK2007": {
+    "title": "Henzler-Wildman & Kern (2007) Dynamic personalities of proteins · Nature 450:964–972",
+    "url": "https://doi.org/10.1038/nature06522"
+  },
+  "LEMKUL2019": {
+    "title": "Lemkul (2019) From Proteins to Perturbed Hamiltonians: GROMACS tutorials · LiveCoMS 1:5068",
+    "url": "https://doi.org/10.33011/livecoms.1.1.5068"
+  },
+  "MDTUT": {
+    "title": "Lemkul: GROMACS Tutorials (Lysozyme in Water)",
+    "url": "https://www.mdtutorials.com/gmx/"
+  },
+  "GMX_TUT": {
+    "title": "GROMACS tutorials: Introduction to Molecular Dynamics",
+    "url": "https://tutorials.gromacs.org/docs/md-intro-tutorial.html"
+  },
+  "GMX_RMSD": {
+    "title": "GROMACS reference manual: Root mean square deviations in structure",
+    "url": "https://manual.gromacs.org/current/reference-manual/analysis/rmsd.html"
+  },
+  "GMX_RMSF": {
+    "title": "GROMACS: gmx rmsf",
+    "url": "https://manual.gromacs.org/current/onlinehelp/gmx-rmsf.html"
+  },
+  "GMX_HBOND": {
+    "title": "GROMACS 2025.1: gmx hbond",
+    "url": "https://manual.gromacs.org/documentation/2025.1/onlinehelp/gmx-hbond.html"
+  },
+  "GROSSFIELD2018": {
+    "title": "Grossfield et al. (2018) Uncertainty and sampling quality in molecular simulations · LiveCoMS 1:5067",
+    "url": "https://doi.org/10.33011/livecoms.1.1.5067"
+  },
+  "KNAPP2018": {
+    "title": "Knapp, Ospina & Deane (2018) The importance of replicas · J Chem Theory Comput 14:6127–6138",
+    "url": "https://doi.org/10.1021/acs.jctc.8b00391"
+  },
+  "AF_CONF": {
+    "title": "EMBL-EBI: AlphaFold2 confidence scores (pLDDT · PAE)",
+    "url": "https://www.ebi.ac.uk/training/online/courses/alphafold/inputs-and-outputs/evaluating-alphafolds-predicted-structures-using-confidence-scores/"
+  },
+  "YUN2007": {
+    "title": "Yun et al. (2007) EGFR kinase–gefitinib structure (2ITY) · Cancer Cell 11:217–227",
+    "url": "https://doi.org/10.1016/j.ccr.2006.12.017"
+  },
+  "PDB2ITY": {
+    "title": "RCSB PDB 2ITY: EGFR kinase–gefitinib",
+    "url": "https://www.rcsb.org/structure/2ITY"
+  }
+}
