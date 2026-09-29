@@ -1,0 +1,32 @@
+{
+  "confidence_afdb": {
+    "title": "AlphaFold Protein Structure Database: FAQ and confidence interpretation",
+    "url": "https://alphafold.ebi.ac.uk/faq",
+    "note": "Official AFDB explanation of predicted lDDT-Cα, local confidence and limitations of chain/domain placement; checked 2026-09-17."
+  },
+  "confidence_af2_code": {
+    "title": "Google DeepMind AlphaFold2: confidence.py",
+    "url": "https://github.com/google-deepmind/alphafold/blob/main/alphafold/common/confidence.py",
+    "note": "Official implementation: per-residue pLDDT expectation ×100, category boundaries 50/70/90, expected PAE from predicted error bins; checked 2026-09-17."
+  },
+  "confidence_lddt_paper": {
+    "title": "Mariani et al. (2013), lDDT: a local superposition-free structure comparison score",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3799472/",
+    "note": "Original lDDT paper, Methods 2.1: reference distances, 15 Å inclusion radius, four overlapping tolerances, all-atom and local evaluation. Checked 2026-09-17."
+  },
+  "confidence_lddt_code": {
+    "title": "Google DeepMind AlphaFold2: lddt.py",
+    "url": "https://github.com/google-deepmind/alphafold/blob/main/alphafold/model/lddt.py",
+    "note": "Official Cα-only training target: reference <15 Å, strict <0.5/1/2/4 Å errors, mask and self-pair exclusion; stereochemical correction omitted. Checked 2026-09-17."
+  },
+  "confidence_af2_head": {
+    "title": "Google DeepMind AlphaFold2: PredictedLDDTHead",
+    "url": "https://github.com/google-deepmind/alphafold/blob/main/alphafold/model/modules.py#L998-L1089",
+    "note": "Structure-module representation to logits; calculated per-residue Cα lDDT converted to classification labels and trained with cross-entropy. References supplement 1.9.6 and Algorithm 29. Checked 2026-09-17."
+  },
+  "confidence_af2_config": {
+    "title": "Google DeepMind AlphaFold2: predicted_lddt configuration",
+    "url": "https://github.com/google-deepmind/alphafold/blob/main/alphafold/model/config.py",
+    "note": "Official AF2 head uses 50 lDDT bins; hidden channels 128. Checked 2026-09-17."
+  }
+}

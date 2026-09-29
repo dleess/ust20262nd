@@ -1,0 +1,228 @@
+{
+  "notice": "학습용 문자열 조작만 수행함. 구조 예측 또는 실험 결과가 아님.",
+  "input_file": "/Users/donghanlee/work/projects/ust20262nd/AIprediction/practice/fictional_learning.a3m",
+  "input_sha256": "31dfa6e25e304332fa53b92fb03724ff3759ad601ce41be7aca9dabe01b8f97a",
+  "depth_including_query": 7,
+  "query_length": 12,
+  "subsample_depth_including_query": 4,
+  "row_sampling_seed": 7,
+  "mask_query_columns_1based": [
+    5,
+    7,
+    10
+  ],
+  "query_preserved": true,
+  "grouping_method": "provided header labels only; NOT AF-Cluster",
+  "masking_method": "homolog uppercase residue to X; NOT AFsample2 implementation",
+  "rows": [
+    {
+      "id": "query",
+      "raw_a3m": "ACDEFGHIKLMN",
+      "aligned": "ACDEFGHIKLMN",
+      "raw_length": 12,
+      "aligned_length": 12,
+      "gap_count": 0,
+      "unknown_X_count": 0,
+      "insertion_count_before_column": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "trailing_insertion_count": 0
+    },
+    {
+      "id": "example_A1",
+      "raw_a3m": "ACDEFGHIKLMN",
+      "aligned": "ACDEFGHIKLMN",
+      "raw_length": 12,
+      "aligned_length": 12,
+      "gap_count": 0,
+      "unknown_X_count": 0,
+      "insertion_count_before_column": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "trailing_insertion_count": 0
+    },
+    {
+      "id": "example_A2",
+      "raw_a3m": "ACDeeEFGHIKLMN",
+      "aligned": "ACDEFGHIKLMN",
+      "raw_length": 14,
+      "aligned_length": 12,
+      "gap_count": 0,
+      "unknown_X_count": 0,
+      "insertion_count_before_column": [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "trailing_insertion_count": 0
+    },
+    {
+      "id": "example_A3",
+      "raw_a3m": "ACDE-GHIKLMN",
+      "aligned": "ACDE-GHIKLMN",
+      "raw_length": 12,
+      "aligned_length": 12,
+      "gap_count": 1,
+      "unknown_X_count": 0,
+      "insertion_count_before_column": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "trailing_insertion_count": 0
+    },
+    {
+      "id": "example_B1",
+      "raw_a3m": "ACDEYGHIKLXN",
+      "aligned": "ACDEYGHIKLXN",
+      "raw_length": 12,
+      "aligned_length": 12,
+      "gap_count": 0,
+      "unknown_X_count": 1,
+      "insertion_count_before_column": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "trailing_insertion_count": 0
+    },
+    {
+      "id": "example_B2",
+      "raw_a3m": "ACDttEYGHIKL-N",
+      "aligned": "ACDEYGHIKL-N",
+      "raw_length": 14,
+      "aligned_length": 12,
+      "gap_count": 1,
+      "unknown_X_count": 0,
+      "insertion_count_before_column": [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "trailing_insertion_count": 0
+    },
+    {
+      "id": "example_B3",
+      "raw_a3m": "AC-EYGHIKLXN",
+      "aligned": "AC-EYGHIKLXN",
+      "raw_length": 12,
+      "aligned_length": 12,
+      "gap_count": 1,
+      "unknown_X_count": 1,
+      "insertion_count_before_column": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "trailing_insertion_count": 0
+    }
+  ],
+  "outputs": {
+    "subsample.a3m": {
+      "depth_including_query": 4,
+      "ids": [
+        "query",
+        "example_A2",
+        "example_A3",
+        "example_B1"
+      ]
+    },
+    "group_A.a3m": {
+      "depth_including_query": 4,
+      "ids": [
+        "query",
+        "example_A1",
+        "example_A2",
+        "example_A3"
+      ]
+    },
+    "group_B.a3m": {
+      "depth_including_query": 4,
+      "ids": [
+        "query",
+        "example_B1",
+        "example_B2",
+        "example_B3"
+      ]
+    },
+    "masked.a3m": {
+      "depth_including_query": 7,
+      "ids": [
+        "query",
+        "example_A1",
+        "example_A2",
+        "example_A3",
+        "example_B1",
+        "example_B2",
+        "example_B3"
+      ]
+    }
+  }
+}

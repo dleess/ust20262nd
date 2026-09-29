@@ -1,0 +1,17 @@
+[
+  {
+    "file": "output/msa_structure_prediction_3h_ko.pptx",
+    "bytes": 3351043,
+    "sha256": "db027ece464985c884ad9cfc36eeda3eaaf7398fbe34ea6bb06b3e4778c3a287"
+  },
+  {
+    "file": "output/msa_structure_prediction_3h_ko.pdf",
+    "bytes": 4935211,
+    "sha256": "16a24bfbf2f3e4e2a8e24f3deaf3e8aeac6374ced4dfe6519f128dbc9e6627fc"
+  },
+  {
+    "file": "output/msa_structure_prediction_worksheet_ko.pdf",
+    "bytes": 160935,
+    "sha256": "21c7a860bab8085dd63f3b6429ad31865d1c5979e81d73a0acfac6efd5c427ac"
+  }
+]

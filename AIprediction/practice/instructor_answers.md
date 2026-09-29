@@ -1,0 +1,17 @@
+# 교사용 해설 — 학생 배포본과 분리
+
+모든 sequence와 수치는 교육용 허구다. 12열 A3M 조작이 가상 180 residue 비교표를 생성한 것이 아니다. 학생에게 실제 예측 성공, 실험 검증 또는 상태별 population로 소개하지 않는다.
+
+1. query 포함 7행, homolog 역할 6행, alignment 열 12개. 원시 행 수를 세는 것이며 Neff가 아니다.
+2. 원문 14글자, alignment 12열. alignment 문자열은 `ACDEFGHIKLMN`. `ee`는 query 3열 D 뒤, 4열 E 직전의 insertion이다. 원문과 insertion 정보는 보존한다. 코드의 `insertion_count_before_column`에서 4번째 값이 2이고 나머지는 0이다.
+3. A3의 `-`는 5열 gap이다. B1의 `X`는 11열의 불명 amino acid이다. 두 문자 모두 alignment 열 하나를 차지하지만 같은 의미가 아니다. 이 파일에서는 X를 모르거나 가린 residue의 표기로 사용한다.
+4. query + `example_A2`, `example_A3`, `example_B1`이다(Python 표준 `random.Random(7).sample` 사용). query가 첫 행에 남으며 동일 Python 환경·입력·seed에서 선택은 재현된다. 같은/유사한 행은 독립적 증거가 아니고 redundancy·phylogenetic bias 때문에 4행=4개의 독립 evolutionary information이 아니다. 다른 seed도 우연히 같은 부분집합을 낼 수 있다. 오래 유지하는 reproducibility을 위해 Python 버전과 선택 ID를 기록하면 좋다.
+5. 각각 4행(query+3). header에 사람이 붙인 A/B 라벨을 분리했을 뿐이다. 알고리즘 군집화, phylogenetic tree 또는 conformational state 분류를 수행하지 않았다. AF-Cluster의 구현이나 재현으로 부르면 안 된다.
+6. `ACDeeEXGXIKXMN`. query와 `ee`, A3의 gap은 모두 그대로다. query의 alignment 열 5·7·10만 homolog의 대문자 residue에서 X로 바뀐다. raw string index가 아니다. A3 5열은 원래 `-`이므로 그대로 유지된다.
+7. 소문자를 대문자로 만들면 insertion 두 residue를 alignment 열로 잘못 센다. 열 수가 14로 바뀌고 query와 맞지 않아 실습 파서가 거부한다. query까지 바꾸면 target sequence 정보도 바뀌므로 “동일 target, homolog 정보만 조작”이라는 통제가 깨진다. X substitution은 예측기 내부 masking token과 자동으로 동일하지 않다.
+8. F1/F2/A1은 약 8 Å, S1/B1/M1은 약 16 Å 후보 묶음이다. S2/M2는 거리가 더 크지만 평균 pLDDT 50/49와 PAE 18/19 Å로 confidence가 낮은 예시다. structure 배치의 불확실성 또는 붕괴 가능성도 검토해야 한다. 두 묶음을 실제 open/closed state라고 확정할 수 없으며, 특정 거리 하나가 전체 structure를 유일하게 정하지도 않는다. 8/16 Å 구분이나 특정 confidence 경계는 보편적 판정 기준이 아니다.
+9. pLDDT는 local structural confidence이며 state population·free energy·function·정답 확률이 아니다. 서로 다른 타당 후보를 최고 점수 하나로 제거하지 않는다. 예: 특정 contact/domain 각도와 거리, 이동 부위의 residue별 pLDDT와 전체 PAE 블록, 입체 충돌/domain 유지 여부를 확인한다. 독립 근거로 실험 structure·FRET·NMR 등 target과 조건에 맞는 자료를 검토할 수 있다. 이 숫자만으로는 그런 검증이 수행되었다고 말할 수 없다.
+10. 아니다. 예측 개수는 선택한 입력·seed·model과 필터링의 영향을 받는 샘플 빈도다. 평형 ensemble에서 독립 sample을 얻었다는 근거가 없다. 조건별 실행 수마저 1/2개로 달라 비율 비교가 부적절하다. 모든 수치가 허구이고 소수 예시이므로 masking의 우월성도 검증하지 않았다.
+11. 예: query와 residue mapping, MSA 검색 DB/날짜·필터·실제 선택 ID, model/버전·parameter 세트, template 사용 여부, recycle 수, 예측 seed·반복 수, MSA cap/후속 샘플링, structure alignment 방법/지표 정의. 입력을 고정하는 목적과 model이 실제 사용한 MSA를 구분한다. 추가 근거는 해당 target의 적절한 조건에서 얻은 실험적 structure/거리/분광 자료 등이며, confidence 점수만으로 대체하지 않는다.
+
+실행 확인: `python3 msa_lab.py --self-test`. 통과 항목은 파싱, insertion·gap·query 보존, 재현 가능한 행 추출, A/B 분리, X masking, 잘못된 입력 거부다. prediction accuracy나 알고리즘 논문의 reproducibility을 검증하는 검사는 아니다.

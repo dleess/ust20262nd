@@ -1,0 +1,62 @@
+{
+  "core_af2": {
+    "title": "Jumper et al. (2021), Highly accurate protein structure prediction with AlphaFold",
+    "url": "https://www.nature.com/articles/s41586-021-03819-2",
+    "note": "AlphaFold2 primary paper"
+  },
+  "core_af3": {
+    "title": "Abramson et al. (2024), Accurate structure prediction of biomolecular interactions with AlphaFold 3",
+    "url": "https://www.nature.com/articles/s41586-024-07487-w",
+    "note": "AlphaFold3 primary paper"
+  },
+  "core_af3_input": {
+    "title": "AlphaFold 3 official input documentation",
+    "url": "https://github.com/google-deepmind/alphafold3/blob/main/docs/input.md",
+    "note": "Custom A3M, external paths, explicit empty fields; checked 2026-09-17"
+  },
+  "core_af3_output": {
+    "title": "AlphaFold 3 official output documentation",
+    "url": "https://github.com/google-deepmind/alphafold3/blob/main/docs/output.md",
+    "note": "Coordinates, per-atom pLDDT, token PAE, per-seed outputs"
+  },
+  "core_cf": {
+    "title": "ColabFold official repository",
+    "url": "https://github.com/sokrypton/ColabFold",
+    "note": "FASTA/A3M input and reproducible workflows"
+  },
+  "core_cf_nb": {
+    "title": "ColabFold AlphaFold2 official notebook",
+    "url": "https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb",
+    "note": "Custom MSA notebook entry"
+  },
+  "core_cf_cli": {
+    "title": "ColabFold batch.py official CLI implementation",
+    "url": "https://github.com/sokrypton/ColabFold/blob/main/colabfold/batch.py",
+    "note": "max-msa, num-seeds, num-models, num-recycle; checked 2026-09-17"
+  },
+  "core_boltz": {
+    "title": "Boltz official prediction documentation",
+    "url": "https://github.com/jwohlwend/boltz/blob/main/docs/prediction.md",
+    "note": "YAML msa path and boltz predict; checked 2026-09-17"
+  },
+  "core_chai": {
+    "title": "Chai-1 official repository",
+    "url": "https://github.com/chaidiscovery/chai-lab",
+    "note": "Entity FASTA and default inference; checked 2026-09-17"
+  },
+  "core_chai_msa": {
+    "title": "Chai-1 official MSA examples",
+    "url": "https://github.com/chaidiscovery/chai-lab/tree/main/examples/msas",
+    "note": "aligned.pqt format"
+  },
+  "core_esm": {
+    "title": "ESM / ESMFold official repository",
+    "url": "https://github.com/facebookresearch/esm",
+    "note": "Single-sequence ESMFold; repository archived, use documented environment"
+  },
+  "core_calm": {
+    "title": "UniProt P0DP23, human calmodulin-1",
+    "url": "https://www.uniprot.org/uniprotkb/P0DP23/entry",
+    "note": "Canonical sequence retrieved https://rest.uniprot.org/uniprotkb/P0DP23.fasta on 2026-09-17, 149 residues including initiating methionine"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "slides": 64,
+  "minutes": 180,
+  "structure_level_slides": [
+    26,
+    27,
+    28
+  ],
+  "original_slide_bodies_unchanged": 61,
+  "coordinate_sequence": "2ITY A790–795: TQLMPF",
+  "worksheet_pages": 2,
+  "outputs": [
+    "output/biomolecule_view_3h_ko.pptx",
+    "output/biomolecule_view_3h_ko.pdf"
+  ]
+}

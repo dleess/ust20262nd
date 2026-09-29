@@ -1,0 +1,77 @@
+[
+  {
+    "file": "afcluster_workflow.png",
+    "title": "Predicting multiple conformations via sequence clustering and AlphaFold2 — Figure 1",
+    "authors": [
+      "Hannah K. Wayment-Steele",
+      "Adedolapo Ojoawo",
+      "Renee Otten",
+      "Julia M. Apitz",
+      "Warintra Pitsawong",
+      "Marc Hömberger",
+      "Sergey Ovchinnikov",
+      "Lucy Colwell",
+      "Dorothee Kern"
+    ],
+    "article_url": "https://www.nature.com/articles/s41586-023-06832-9",
+    "figure_url": "https://www.nature.com/articles/s41586-023-06832-9/figures/1",
+    "image_url": "https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41586-023-06832-9/MediaObjects/41586_2023_6832_Fig1_HTML.png",
+    "license_evidence": "Official article Rights and permissions explicitly states CC BY 4.0; images are covered unless otherwise credited. Figure 1 has no separate exclusion credit.",
+    "note": "Unmodified full Figure 1; no cropping. Contains KaiB conformations and AF-Cluster overview (panel d). Published online in 2023; Nature volume 625, 832–839 (2024). Dense multi-panel figure; use large on a slide or enlarge panel d using a clearly attributed crop.",
+    "dimensions_px": [
+      2041,
+      1961
+    ],
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "retrieved_at": "2026-09-17T05:08:43.511390+00:00",
+    "sha256": "3efcab51d0a554e9f3457381973eb1b07515b3f727e92a71e98c62989dd0f19c",
+    "bytes": 875159
+  },
+  {
+    "file": "subsampling_workflow.jpg",
+    "title": "Sampling alternative conformational states of transporters and receptors with AlphaFold2 — Figure 1",
+    "authors": [
+      "Diego del Alamo",
+      "Davide Sala",
+      "Hassane S Mchaourab",
+      "Jens Meiler"
+    ],
+    "article_url": "https://elifesciences.org/articles/75751",
+    "figure_url": "https://elifesciences.org/articles/75751/figures#fig1",
+    "image_url": "https://iiif.elifesciences.org/lax/75751%2Felife-75751-fig1-v2.tif/full/full/0/default.jpg",
+    "license_evidence": "Official article Copyright section states Creative Commons Attribution License and links to CC BY 4.0; no separate figure exclusion is indicated.",
+    "note": "Unmodified full Figure 1; no cropping. This is an MSA-depth/results figure, not a workflow schematic. The article has no dedicated workflow figure; it illustrates alternative conformations of transporters and receptors. Dense multi-panel figure; explain one panel at a time.",
+    "dimensions_px": [
+      5277,
+      6595
+    ],
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "retrieved_at": "2026-09-17T05:08:44.539123+00:00",
+    "sha256": "b052f994936dca001ea6acdd63df9891a291c6031d50d16952e5c8c7de86fbf2",
+    "bytes": 1994452
+  },
+  {
+    "file": "afsample2_workflow.png",
+    "title": "AFsample2 predicts multiple conformations and ensembles with AlphaFold2 — Figure 1",
+    "authors": [
+      "Yogesh Kalakoti",
+      "Björn Wallner"
+    ],
+    "article_url": "https://www.nature.com/articles/s42003-025-07791-9",
+    "figure_url": "https://www.nature.com/articles/s42003-025-07791-9/figures/1",
+    "image_url": "https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs42003-025-07791-9/MediaObjects/42003_2025_7791_Fig1_HTML.png",
+    "license_evidence": "Official article Rights and permissions explicitly states CC BY 4.0; images are covered unless otherwise credited. Figure 1 has no separate exclusion credit.",
+    "note": "Unmodified full Figure 1; no cropping. Workflow schematic contrasts MSA row subsampling and column masking. Communications Biology 8, 373 (2025). Use a large display or enlarge the top schematic for beginners.",
+    "dimensions_px": [
+      2003,
+      2026
+    ],
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "retrieved_at": "2026-09-17T05:08:44.838619+00:00",
+    "sha256": "d1194d5605e6f181130a5b16311fba0914e5dad559636375a8a8c0253a664db2",
+    "bytes": 489572
+  }
+]

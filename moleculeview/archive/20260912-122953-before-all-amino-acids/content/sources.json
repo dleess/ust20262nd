@@ -1,0 +1,80 @@
+{
+  "CHEM": {
+    "title": "OpenStax Biology 2e, 2.1: 원자와 화학 결합",
+    "url": "https://openstax.org/books/biology-2e/pages/2-1-atoms-isotopes-ions-and-molecules-the-building-blocks"
+  },
+  "WATER": {
+    "title": "OpenStax Biology 2e, 2.2: 물과 극성",
+    "url": "https://openstax.org/books/biology-2e/pages/2-2-water"
+  },
+  "PROTEIN": {
+    "title": "OpenStax Biology 2e, 3.4: 아미노산과 단백질",
+    "url": "https://openstax.org/books/biology-2e/pages/3-4-proteins"
+  },
+  "GRAPHICS": {
+    "title": "RCSB PDB-101: Molecular Graphics Programs",
+    "url": "https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/molecular-graphics-programs"
+  },
+  "MISSING": {
+    "title": "RCSB PDB-101: Missing Coordinates",
+    "url": "https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/missing-coordinates"
+  },
+  "METHODS": {
+    "title": "RCSB PDB-101: Methods for Determining Structure",
+    "url": "https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/methods-for-determining-structure"
+  },
+  "RESOLUTION": {
+    "title": "RCSB PDB: 2ITY 실험 메타데이터",
+    "url": "https://www.rcsb.org/structure/2ITY"
+  },
+  "PDB2ITY": {
+    "title": "RCSB PDB 2ITY: EGFR kinase–gefitinib",
+    "url": "https://www.rcsb.org/structure/2ITY"
+  },
+  "YUN": {
+    "title": "Yun et al. (2007), Cancer Cell 11:217–227",
+    "url": "https://doi.org/10.1016/j.ccr.2006.12.017"
+  },
+  "PDB1M17": {
+    "title": "RCSB PDB 1M17: EGFR kinase–erlotinib",
+    "url": "https://www.rcsb.org/structure/1M17"
+  },
+  "STAMOS": {
+    "title": "Stamos et al. (2002), J Biol Chem 277:46265–46272",
+    "url": "https://doi.org/10.1074/jbc.M207135200"
+  },
+  "AF": {
+    "title": "EMBL-EBI: AlphaFold2 신뢰도 지표 해석",
+    "url": "https://www.ebi.ac.uk/training/online/courses/alphafold/inputs-and-outputs/evaluating-alphafolds-predicted-structures-using-confidence-scores/"
+  },
+  "MD": {
+    "title": "GROMACS: Introduction to Molecular Dynamics",
+    "url": "https://tutorials.gromacs.org/md-intro-tutorial.html"
+  },
+  "DOCKING": {
+    "title": "AutoDock Vina: Frequently Asked Questions",
+    "url": "https://autodock-vina.readthedocs.io/en/latest/faq.html"
+  },
+  "COORD": {
+    "title": "PDB 공개 좌표에서 계산한 접촉 거리",
+    "url": "https://files.rcsb.org/download/2ITY.pdb",
+    "detail": "2ITY: MET A793 N–IRE A2020 N3 2.670 Å; LEU A718 CD2–IRE A2020 CAA 3.737 Å. 1M17: MET A769 N–AQ4 A999 N2 2.699 Å; LEU A764 CB–AQ4 A999 C1 3.431 Å. 1M17 원좌표 https://files.rcsb.org/download/1M17.pdb. 유클리드 거리이며 결합 세기 또는 실험 정밀도 값이 아님."
+  },
+  "PDBFMT": {
+    "title": "wwPDB: PDB Format v3.3, ATOM / HETATM coordinate records",
+    "url": "https://www.wwpdb.org/documentation/file-format-content/format33/sect9.html"
+  },
+  "CIFSYNTAX": {
+    "title": "wwPDB: PDBx/mmCIF syntax and loop tables",
+    "url": "https://mmcif.wwpdb.org/docs/tutorials/mechanics/pdbx-mmcif-syntax.html"
+  },
+  "CIF2ITY": {
+    "title": "RCSB PDB: 2ITY PDBx/mmCIF original coordinates",
+    "url": "https://files.rcsb.org/download/2ITY.cif",
+    "detail": "2026-09-12다운로드. assets/structures/2ITY.cif에 원본 보관. 예시는 _atom_site에서 10개 열과 첫 두 행을 선별한 발췌. 첫 원자: GLU, auth A697, label A2, xyz (-68.144, -7.449, -50.184) Å, occupancy 1.00, B_iso_or_equiv 55.89 Å²."
+  },
+  "COORDREAD": {
+    "title": "RCSB PDB-101: Dealing with Coordinates",
+    "url": "https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/dealing-with-coordinates"
+  }
+}

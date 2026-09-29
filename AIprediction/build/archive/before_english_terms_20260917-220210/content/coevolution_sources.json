@@ -1,0 +1,12 @@
+{
+  "coevo_miyazawa": {
+    "title": "Miyazawa (2013). Prediction of Contact Residue Pairs Based on Co-Substitution between Sites in Protein Structures. PLOS ONE.",
+    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0054252",
+    "note": "원연구의 구조·기능 제약, 치환의 물리화학적 보상, 계통 가지의 치환 추론 및 직접·간접 효과 구분. 강의 D/K 표는 원논문의 데이터가 아닌 가상 조합 예시이며 실제 진화 순서나 접촉을 뜻하지 않음. 2026-09-17 원문 확인."
+  },
+  "coevo_pairing": {
+    "title": "Gandarilla-Pérez et al. (2023). Combining phylogeny and coevolution improves the inference of interaction partners among paralogous proteins. PLOS Computational Biology.",
+    "url": "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011010",
+    "note": "복합체 co-MSA 행의 대응, 같은 종의 여러 paralog가 만드는 파트너 모호성, orthology 이용과 depth 감소의 균형. 논문의 benchmark는 특정 pairing 가정을 사용하므로 일반적인 정확도 보장으로 설명하지 않음. 2026-09-17 원문 확인."
+  }
+}

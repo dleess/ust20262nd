@@ -1,0 +1,372 @@
+{
+  "slides": 61,
+  "minutes": 180,
+  "checks": [
+    {
+      "slide": 1,
+      "title": "Biomolecule View",
+      "minutes": 1,
+      "objects": 7
+    },
+    {
+      "slide": 2,
+      "title": "끝나면 무엇을 할 수 있을까?",
+      "minutes": 2,
+      "objects": 3
+    },
+    {
+      "slide": 3,
+      "title": "전체 9시간의 연결",
+      "minutes": 2,
+      "objects": 4
+    },
+    {
+      "slide": 4,
+      "title": "오늘의 180분",
+      "minutes": 1,
+      "objects": 4
+    },
+    {
+      "slide": 5,
+      "title": "원자와 원소",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 6,
+      "title": "공유결합: 원자를 잇는 연결",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 7,
+      "title": "같은 약물의 두 가지 표현",
+      "minutes": 2,
+      "objects": 8
+    },
+    {
+      "slide": 8,
+      "title": "순전하와 부분전하",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 9,
+      "title": "물은 중성이면서 극성이다",
+      "minutes": 3,
+      "objects": 6
+    },
+    {
+      "slide": 10,
+      "title": "물과 비극성 부분",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 11,
+      "title": "수소결합은 공유결합과 다르다",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 12,
+      "title": "형성평가 ①: 기호를 읽자",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 13,
+      "title": "해설 ①: 중성과 비극성",
+      "minutes": 2,
+      "objects": 4
+    },
+    {
+      "slide": 14,
+      "title": "아미노산의 공통 뼈대",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 15,
+      "title": "주사슬과 곁사슬을 나누어 보기",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 16,
+      "title": "대표 곁사슬의 네 가지 특징",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 17,
+      "title": "작은 곁사슬과 가지 구조: Gly, Ala, Val",
+      "minutes": 3,
+      "objects": 6
+    },
+    {
+      "slide": 18,
+      "title": "비극성 곁사슬의 모양: Leu, Ile, Pro, Met",
+      "minutes": 3,
+      "objects": 6
+    },
+    {
+      "slide": 19,
+      "title": "방향족 고리: Phe, Tyr, Trp",
+      "minutes": 3,
+      "objects": 6
+    },
+    {
+      "slide": 20,
+      "title": "OH와 SH 곁사슬: Ser, Thr, Cys",
+      "minutes": 3,
+      "objects": 6
+    },
+    {
+      "slide": 21,
+      "title": "아마이드와 음전하: Asn, Gln, Asp, Glu",
+      "minutes": 3,
+      "objects": 6
+    },
+    {
+      "slide": 22,
+      "title": "염기성 곁사슬: Lys, Arg, His",
+      "minutes": 3,
+      "objects": 6
+    },
+    {
+      "slide": 23,
+      "title": "곁사슬에서 단서 찾기",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 24,
+      "title": "펩타이드결합으로 연결하기",
+      "minutes": 3,
+      "objects": 6
+    },
+    {
+      "slide": 25,
+      "title": "아미노산에서 잔기와 사슬로",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 26,
+      "title": "잔기 라벨 읽기",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 27,
+      "title": "PDB 텍스트: 문자 위치로 읽는 원자 정보",
+      "minutes": 2,
+      "objects": 7
+    },
+    {
+      "slide": 28,
+      "title": "mmCIF 텍스트: 태그 순서로 읽는 원자 정보",
+      "minutes": 2,
+      "objects": 8
+    },
+    {
+      "slide": 29,
+      "title": "좌표 외의 값과 잔기 번호 읽기",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 30,
+      "title": "사슬이 접히면 공간이 생긴다",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 31,
+      "title": "나선과 시트는 무엇일까?",
+      "minutes": 3,
+      "objects": 6
+    },
+    {
+      "slide": 32,
+      "title": "서열의 이웃과 공간의 이웃",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 33,
+      "title": "휴식 10분",
+      "minutes": 10,
+      "objects": 3
+    },
+    {
+      "slide": 34,
+      "title": "같은 좌표, 세 가지 표현",
+      "minutes": 3,
+      "objects": 10
+    },
+    {
+      "slide": 35,
+      "title": "Cartoon으로 보는 단백질",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 36,
+      "title": "Sticks로 보는 약물",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 37,
+      "title": "Surface로 보는 결합 공간",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 38,
+      "title": "색을 읽기 위한 범례",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 39,
+      "title": "활동 2: 질문에 맞는 그림",
+      "minutes": 4,
+      "objects": 5
+    },
+    {
+      "slide": 40,
+      "title": "구조 파일에 없는 정보",
+      "minutes": 2,
+      "objects": 4
+    },
+    {
+      "slide": 41,
+      "title": "오늘의 구조: PDB 2ITY",
+      "minutes": 1,
+      "objects": 5
+    },
+    {
+      "slide": 42,
+      "title": "결합에 기여하는 특징",
+      "minutes": 4,
+      "objects": 5
+    },
+    {
+      "slide": 43,
+      "title": "포켓과 약물의 모양",
+      "minutes": 4,
+      "objects": 5
+    },
+    {
+      "slide": 44,
+      "title": "Leu718의 비극성 곁사슬",
+      "minutes": 4,
+      "objects": 5
+    },
+    {
+      "slide": 45,
+      "title": "Met793 주사슬의 수소결합",
+      "minutes": 5,
+      "objects": 5
+    },
+    {
+      "slide": 46,
+      "title": "물과 분자의 움직임",
+      "minutes": 2,
+      "objects": 4
+    },
+    {
+      "slide": 47,
+      "title": "활동 3: 관찰과 해석",
+      "minutes": 5,
+      "objects": 5
+    },
+    {
+      "slide": 48,
+      "title": "휴식 10분",
+      "minutes": 10,
+      "objects": 3
+    },
+    {
+      "slide": 49,
+      "title": "함께 읽기 1: 전체 구조",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 50,
+      "title": "함께 읽기 2: 결합 공간",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 51,
+      "title": "함께 읽기 3: 주변 잔기",
+      "minutes": 3,
+      "objects": 5
+    },
+    {
+      "slide": 52,
+      "title": "함께 읽기 4: 원자 수준의 근거",
+      "minutes": 4,
+      "objects": 5
+    },
+    {
+      "slide": 53,
+      "title": "근거를 담은 설명 예시",
+      "minutes": 3,
+      "objects": 4
+    },
+    {
+      "slide": 54,
+      "title": "최종 활동: 다른 약물의 구조",
+      "minutes": 5,
+      "objects": 8
+    },
+    {
+      "slide": 55,
+      "title": "최종 활동: 근거를 적기",
+      "minutes": 7,
+      "objects": 5
+    },
+    {
+      "slide": 56,
+      "title": "최종 활동 해설",
+      "minutes": 5,
+      "objects": 5
+    },
+    {
+      "slide": 57,
+      "title": "구조 읽기로 할 수 있는 판단",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 58,
+      "title": "다음 두 수업의 질문",
+      "minutes": 2,
+      "objects": 5
+    },
+    {
+      "slide": 59,
+      "title": "오늘의 도착점",
+      "minutes": 1,
+      "objects": 4
+    },
+    {
+      "slide": 60,
+      "title": "참고 자료: 기초와 구조 읽기",
+      "minutes": 0,
+      "objects": 16
+    },
+    {
+      "slide": 61,
+      "title": "참고 자료: 사례와 후속 수업",
+      "minutes": 0,
+      "objects": 16
+    }
+  ]
+}

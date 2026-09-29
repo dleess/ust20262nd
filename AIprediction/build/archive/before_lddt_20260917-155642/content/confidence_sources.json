@@ -1,0 +1,12 @@
+{
+  "confidence_afdb": {
+    "title": "AlphaFold Protein Structure Database: FAQ and confidence interpretation",
+    "url": "https://alphafold.ebi.ac.uk/faq",
+    "note": "Official AFDB explanation of predicted lDDT-Cα, local confidence and limitations of chain/domain placement; checked 2026-09-17."
+  },
+  "confidence_af2_code": {
+    "title": "Google DeepMind AlphaFold2: confidence.py",
+    "url": "https://github.com/google-deepmind/alphafold/blob/main/alphafold/common/confidence.py",
+    "note": "Official implementation: per-residue pLDDT expectation ×100, category boundaries 50/70/90, expected PAE from predicted error bins; checked 2026-09-17."
+  }
+}
