@@ -1,0 +1,82 @@
+{
+  "afcluster_paper": {
+    "title": "Wayment-Steele et al. (2024), Predicting multiple conformations via sequence clustering and AlphaFold2",
+    "url": "https://www.nature.com/articles/s41586-023-06832-9",
+    "note": "Nature 625, 832–839. Online 2023-11-13; volume year 2024. AF-Cluster, KaiB examples; original research. CC BY 4.0."
+  },
+  "afcluster_code": {
+    "title": "AF-Cluster author repository and ClusterMSA.py",
+    "url": "https://github.com/HWaymentSteele/AF_Cluster/blob/main/scripts/ClusterMSA.py",
+    "note": "Live checked 2026-09-17. Removes query from sequence clustering, then prepends original query to each cluster output. README points to ColabDesign notebook; implementation details are version dependent."
+  },
+  "afcluster_critique": {
+    "title": "Schafer et al. (2025), Sequence clustering confounds AlphaFold2",
+    "url": "https://www.nature.com/articles/s41586-024-08267-2",
+    "note": "Nature 638, E8–E12; Matters Arising, published 2025-02-19. Reports CF-random comparison and questions the proposed evolutionary-coupling explanation. Interpret alongside original paper and authors response."
+  },
+  "afcluster_response": {
+    "title": "Wayment-Steele et al. (2025), Does Sequence Clustering Confound AlphaFold2?",
+    "url": "https://doi.org/10.1016/j.jmb.2025.169376",
+    "note": "Journal of Molecular Biology 437(21), 169376; online 2025-08-06. Primary author response using additional controls. PubMed record verified: https://pubmed.ncbi.nlm.nih.gov/40780395/ . Does not settle method superiority for all targets."
+  },
+  "subsampling_paper": {
+    "title": "del Alamo et al. (2022), Sampling alternative conformational states of transporters and receptors with AlphaFold2",
+    "url": "https://elifesciences.org/articles/75751",
+    "note": "eLife 11:e75751. Row subsampling and template tests on a limited transporter/GPCR benchmark; diverse structures can include misfolded outliers. CC BY 4.0."
+  },
+  "subsampling_code": {
+    "title": "delalamo/af2_conformations author repository",
+    "url": "https://github.com/delalamo/af2_conformations",
+    "note": "Primary implementation linked by eLife paper. Used conceptually; no GPU inference performed for this lesson."
+  },
+  "speach_paper": {
+    "title": "Stein and Mchaourab (2022), SPEACH_AF: Sampling protein ensembles and conformational heterogeneity with Alphafold2",
+    "url": "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010483",
+    "note": "PLOS Computational Biology 18(8):e1010483. In silico alanine editing based on structural contacts; not equivalent to unknown-residue masking. Original method also modifies query; gaps retained. CC BY."
+  },
+  "speach_code": {
+    "title": "SPEACH_AF author notebook: SPEACH_AF_scan.ipynb",
+    "url": "https://github.com/RSvan/SPEACH_AF/blob/main/SPEACH_AF_scan.ipynb",
+    "note": "Live checked 2026-09-17. Original notebook iterates from row zero, edits selected non-gap positions to A, and writes modified query and MSA. Important exception to the query-preserving classroom exercise."
+  },
+  "afsample2_paper": {
+    "title": "Kalakoti and Wallner (2025), AFsample2 predicts multiple conformations and ensembles with AlphaFold2",
+    "url": "https://www.nature.com/articles/s42003-025-07791-9",
+    "note": "Communications Biology 8, 373; 2025-03-05. Random MSA-column masking to X while excluding target first row, with inference dropout. Figure 1 contrasts row subsampling and column masking; results depend on target and settings. CC BY 4.0."
+  },
+  "afsample2_code": {
+    "title": "wallnerlab/AFsample2 author repository",
+    "url": "https://github.com/wallnerlab/AFsample2",
+    "note": "Live checked 2026-09-17. Documents prediction and model-analysis stages, precomputed MSA, masking, dropout, and alternative methods. Read implementation/version when reproducing papers; no GPU run here."
+  },
+  "af3_paper": {
+    "title": "Abramson et al. (2024), Accurate structure prediction of biomolecular interactions with AlphaFold 3",
+    "url": "https://www.nature.com/articles/s41586-024-07487-w",
+    "note": "Nature 630, 493–500. AF3 covers multiple molecular types; paper discusses dynamics/conformation-coverage limitations. AF2 method benchmarks cannot be assumed to apply unchanged."
+  },
+  "af3_input": {
+    "title": "Google DeepMind AlphaFold 3 input documentation",
+    "url": "https://github.com/google-deepmind/alphafold3/blob/main/docs/input.md",
+    "note": "Live checked 2026-09-17. Local AF3 allows custom A3M MSA; first sequence must equal target, uppercase/gap aligned lengths must match. Header organism metadata may affect multimer MSA pairing; a name such as open is not a state command."
+  },
+  "afsample3_code": {
+    "title": "wallnerlab/afsample3 research implementation",
+    "url": "https://github.com/wallnerlab/afsample3",
+    "note": "Repository existence checked 2026-09-17. An AF3 adaptation exists; this lesson does not assert independent benchmark validation or universal superiority based on repository availability."
+  },
+  "ebi_plddt": {
+    "title": "EMBL-EBI / Google DeepMind training: pLDDT, Understanding local confidence",
+    "url": "https://www.ebi.ac.uk/training/online/courses/alphafold/inputs-and-outputs/evaluating-alphafolds-predicted-structures-using-confidence-scores/plddt-understanding-local-confidence/",
+    "note": "pLDDT estimates local structural confidence; high local confidence does not determine domain placement or state population."
+  },
+  "ebi_pae": {
+    "title": "EMBL-EBI / Google DeepMind training: PAE, A measure of global confidence",
+    "url": "https://www.ebi.ac.uk/training/online/courses/alphafold/inputs-and-outputs/evaluating-alphafolds-predicted-structures-using-confidence-scores/pae-a-measure-of-global-confidence-in-alphafold-predictions/",
+    "note": "PAE is predicted positional error after alignment on another residue, in angstroms. Read relevant inter-domain blocks; not a dynamics timescale or population."
+  },
+  "ebi_inputs": {
+    "title": "EMBL-EBI / Google DeepMind training: AlphaFold2 inputs and outputs recap",
+    "url": "https://www.ebi.ac.uk/training/online/courses/alphafold/inputs-and-outputs/alphafold-inputs-and-outputs-recap/",
+    "note": "Templates, multiple seeds, recycles and confidence outputs. Accessed 2026-09-17."
+  }
+}

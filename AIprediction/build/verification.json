@@ -1,0 +1,15 @@
+{
+  "slides": 104,
+  "lecture_pdf_pages": 104,
+  "worksheet_pages": 7,
+  "total_minutes": 180,
+  "break_minutes": 20,
+  "all_slide_notes_present": true,
+  "lecture1_outputs_unchanged": true,
+  "missing_rendered_text": [],
+  "exercises_with_immediate_answers": 16,
+  "answer_and_execution_check_slides": 24,
+  "worksheet_items_embedded": 27,
+  "actual_structure_inference_run": false,
+  "synthetic_practice_data": true
+}

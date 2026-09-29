@@ -1,0 +1,27 @@
+{
+  "lecture_slides": 55,
+  "lecture_minutes": 180,
+  "format_slides": [
+    21,
+    22,
+    23
+  ],
+  "break_intervals": [
+    [
+      71,
+      81
+    ],
+    [
+      125,
+      135
+    ]
+  ],
+  "visual_changes_beyond_reordering": [
+    4,
+    27
+  ],
+  "outputs": [
+    "output/biomolecule_view_3h_ko.pptx",
+    "output/biomolecule_view_3h_ko.pdf"
+  ]
+}

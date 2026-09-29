@@ -1,0 +1,18 @@
+{
+  "lecture_slides": 55,
+  "lecture_minutes": 180,
+  "break_minutes": 20,
+  "added_slides": [
+    33,
+    34,
+    35
+  ],
+  "worksheet_pages": 2,
+  "original_slide_bodies_unchanged": 52,
+  "preview_directory": "build/previews_format_edit/final",
+  "coordinate_check": "python3 build/check_format_examples.py",
+  "outputs": [
+    "output/biomolecule_view_3h_ko_pdb_cif.pptx",
+    "output/biomolecule_view_3h_ko_pdb_cif.pdf"
+  ]
+}

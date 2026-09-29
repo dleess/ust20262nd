@@ -1,0 +1,29 @@
+{
+  "title": "수업용 가상 결과 비교표: 실제 예측 또는 실험 결과가 아님",
+  "synthetic": true,
+  "predictor_was_run": false,
+  "experimental_measurement": false,
+  "not_computed_from_a3m_fixture": true,
+  "provenance": "강의의 판단 연습을 위해 사람이 만든 숫자. 실제 단백질, PDB 구조, AlphaFold 출력과 연결되지 않음.",
+  "scenario": {
+    "description": "동일한 가상 180잔기 표적의 MSA 조건을 바꿨다고 가정한 독립 사고 실험. 12열 fictional_learning.a3m에서 계산한 값이 아님.",
+    "fictional_target_length": 180,
+    "distance_definition": "40번과 140번 잔기 C-alpha 사이의 거리라는 가상 관측량",
+    "distance_units": "angstrom",
+    "plddt_definition": "가상 모델의 전체 잔기 평균 pLDDT (0-100); 국소 구조 신뢰도 요약이며 상태 존재 확률이 아님",
+    "pae_definition": "가상 구간 20-70과 110-160 사이 두 방향 PAE 블록의 평균; 이 표에서는 하나의 요약값이며 전체 PAE 행렬을 대체하지 않음",
+    "pae_units": "angstrom",
+    "depth_definition": "query를 포함한 가상 입력 행 수; Neff가 아님",
+    "seed_definition": "각 조건 내 독립 실행을 가정한 가상 예측 seed; msa_lab.py의 행 추출 seed와 다름"
+  },
+  "rows": [
+    {"id": "F1", "condition": "full_MSA", "depth_including_query": 7, "seed": 1, "mean_plddt": 91.0, "distance_A": 8.2, "inter_region_pae_A": 3.1},
+    {"id": "F2", "condition": "full_MSA", "depth_including_query": 7, "seed": 2, "mean_plddt": 92.0, "distance_A": 8.6, "inter_region_pae_A": 3.0},
+    {"id": "S1", "condition": "shallow_MSA", "depth_including_query": 4, "seed": 1, "mean_plddt": 88.0, "distance_A": 16.4, "inter_region_pae_A": 4.4},
+    {"id": "S2", "condition": "shallow_MSA", "depth_including_query": 4, "seed": 2, "mean_plddt": 50.0, "distance_A": 22.0, "inter_region_pae_A": 18.0},
+    {"id": "A1", "condition": "prelabelled_group_A", "depth_including_query": 4, "seed": 1, "mean_plddt": 90.0, "distance_A": 8.5, "inter_region_pae_A": 3.3},
+    {"id": "B1", "condition": "prelabelled_group_B", "depth_including_query": 4, "seed": 1, "mean_plddt": 89.0, "distance_A": 16.0, "inter_region_pae_A": 4.0},
+    {"id": "M1", "condition": "homolog_X_mask", "depth_including_query": 7, "seed": 1, "mean_plddt": 87.0, "distance_A": 15.8, "inter_region_pae_A": 5.2},
+    {"id": "M2", "condition": "homolog_X_mask", "depth_including_query": 7, "seed": 2, "mean_plddt": 49.0, "distance_A": 24.0, "inter_region_pae_A": 19.0}
+  ]
+}

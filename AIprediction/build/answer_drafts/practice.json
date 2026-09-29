@@ -1,0 +1,128 @@
+[
+  {
+    "after_id": 58,
+    "slides": [
+      {
+        "section": "기본 예측과 비교 설계",
+        "title": "정답·해설 · 공정한 비교는 B",
+        "kind": "table",
+        "minutes": 2,
+        "table": {
+          "headers": ["판단", "정답과 이유"],
+          "widths": [2.25, 9.75],
+          "rows": [
+            ["B를 선택", "같은 query·각 10회: homolog 행 선택의 효과를 비교"],
+            ["A의 문제", "query 삭제·template 추가·5→50회가 함께 변해 원인 구별 불가"],
+            ["고정할 것", "query·모델/가중치·template·예측 seed 집합·recycle·생성 수"],
+            ["기록할 것", "선택한 행 ID와 행 수 / 행 추출 seed와 MSA 검색 DB·날짜"]
+          ]
+        },
+        "body": [
+          "전체 MSA 대조군이 있어야 선택 MSA의 변화와 원래 예측 경향을 비교할 수 있습니다.",
+          "흔한 오류: seed 개수만 맞추거나, 더 많이 만든 쪽의 최고 점수만 비교하기."
+        ],
+        "notes": "활동의 정답은 B입니다. A에서는 같은 단백질의 배경 MSA만 바꾼 것이 아니라 query 경계, template 유무, 계산량까지 달라졌습니다. 따라서 구조 차이를 행 선택 탓으로 돌릴 수 없습니다. B는 전체 MSA를 baseline으로 두고 선택 MSA를 비교하므로 질문에 더 가깝습니다. 단, 10회라는 숫자가 같다는 조건만으로 충분하지 않습니다. 동일 모델/가중치와 동일 예측 seed 목록, template와 recycle 설정, 실제 생성 수를 맞춥니다. 행 추출 seed는 어느 homolog가 입력에 남는지를 정하고 예측 seed는 예측기의 확률적 처리를 정하므로 둘을 구분해 기록합니다. 입력 MSA의 원시 행 수는 독립 진화 정보의 수가 아닙니다. 선택 ID와 유효 다양성도 함께 확인합니다. 비교한 모든 후보에 같은 구조 지표와 confidence 판정 기준을 적용하고 최고 점수 하나만 골라 방법의 우월성을 판단하지 않습니다. 전체 MSA의 예측 역시 실험적 정답은 아닙니다. content/worksheet_answers.md 4쪽 4번 및 기존 활동 58의 A/B 조건과 대조했습니다.",
+        "sources": ["afcluster_critique", "afcluster_response", "ebi_inputs"]
+      }
+    ]
+  },
+  {
+    "after_id": 61,
+    "slides": [
+      {
+        "section": "MSA를 바꾸어 대안 구조 탐색",
+        "title": "정답·해설 · Query 포함 4행, 정렬 12열",
+        "kind": "sequence",
+        "minutes": 2,
+        "sequence": {
+          "text": "depth=4 / row-sampling seed=7\nquery       ACDEFGHIKLMN\nexample_A2  ACDeeEFGHIKLMN\nexample_A3  ACDE-GHIKLMN\nexample_B1  ACDEYGHIKLXN",
+          "explanation": [
+            "선택 ID: query, example_A2, example_A3, example_B1",
+            "허구 학습 자료: ee는 삽입이므로 A2 원문 14글자, 정렬 12열"
+          ]
+        },
+        "body": [
+          "원본 7행 → 4행: homolog는 6개에서 3개로 감소하며 query는 불변입니다.",
+          "빠진 A1·B2·B3의 정보 때문에 열별 빈도·coverage·조합 빈도가 달라질 수 있습니다.",
+          "흔한 오류: depth 4를 homolog 4개로 세기. 4행이 독립 진화 사건 4개라는 뜻도 아닙니다."
+        ],
+        "notes": "현재 practice/msa_lab.py의 subsample(rows, 4, 7)을 직접 실행한 결과와 practice/runs/verified_default/report.json을 대조했습니다. 출력 순서는 원본 순서이며 query, example_A2, example_A3, example_B1입니다. Query는 예측하려는 단백질이므로 첫 행에 그대로 둡니다. 소문자 ee와 gap, X도 해당 행의 원문 그대로 남습니다. ee 두 글자를 정렬 열로 세면 14열로 오해하게 됩니다. 원래 A1은 query와 동일한 서열이어서 이를 제거했다고 독립 정보 한 단위가 정확히 감소한다고 해석하지 않습니다. 행 선택에 따라 다양성, gap 위치와 coverage, 단일 열 빈도 및 여러 열 조합의 빈도가 함께 바뀔 수 있습니다. 이 작은 가상 MSA로 실제 공진화 신호의 유의성을 검정하지 않습니다. 같은 환경·입력·행 추출 seed를 사용하면 같은 부분집합이 나오지만 장기 재현을 위해 코드/Python 버전과 선택 ID도 기록합니다. depth, group, mask 출력은 원본 7행에서 각각 만든 독립 조건이며 순차 가공 결과가 아닙니다. content/worksheet_answers.md 4쪽 1번 및 practice/instructor_answers.md 4번과 일치합니다.",
+        "sources": []
+      }
+    ]
+  },
+  {
+    "after_id": 66,
+    "slides": [
+      {
+        "section": "MSA를 바꾸어 대안 구조 탐색",
+        "title": "정답·해설 · 그룹마다 잔기 분포가 달라진다",
+        "kind": "table",
+        "minutes": 2,
+        "table": {
+          "headers": ["파일", "포함된 homolog", "정렬 5열", "정렬 11열"],
+          "widths": [2.0, 3.6, 3.2, 3.2],
+          "rows": [
+            ["group_A", "A1 · A2 · A3", "F · F · -", "M · M · M"],
+            ["group_B", "B1 · B2 · B3", "Y · Y · Y", "X · - · X"]
+          ]
+        },
+        "body": [
+          "두 파일 모두 동일 query + homolog 3행 = 4행입니다. 표의 분포는 query를 제외했습니다.",
+          "허구 header의 A/B 라벨로 분리한 결과입니다. AF-Cluster 알고리즘을 실행한 것이 아닙니다.",
+          "A/B를 ortholog 집합이나 열림/닫힘 상태로 부를 근거가 없습니다.",
+          "흔한 오류: 같은 행 수면 같은 정보량이라 생각하기. X는 불명 잔기, -는 gap입니다."
+        ],
+        "notes": "현재 practice/msa_lab.py의 prelabelled_groups 결과를 직접 계산하여 확인했습니다. 두 파일의 첫 query는 모두 ACDEFGHIKLMN입니다. Query를 제외하고 A1/A2/A3 순서로 5열을 읽으면 F,F,-이고 11열은 M,M,M입니다. B1/B2/B3는 각각 Y,Y,Y와 X,-,X입니다. X는 정렬 열 하나를 차지하지만 잔기 정체를 알 수 없고, gap은 해당 정렬 위치에 대응하는 잔기가 없다는 표식입니다. 따라서 B의 11열을 세 종류의 알려진 아미노산 분포로 세면 안 됩니다. Query를 포함해 빈도를 계산하면 각 그룹에 query의 5열 F와 11열 M이 하나씩 더해지므로, 분모와 query 포함 여부를 반드시 명시합니다. 이 활동의 A/B는 3쪽 공진화 문제에서 진화 이력이 주어진 유전자 A/B와 별개입니다. 이 파일에는 종분화·중복 관계를 판정할 근거가 없습니다. 서열 유사성으로 실제 clustering을 수행하더라도 서열 그룹이 구조 상태·상태 수·점유율과 곧바로 같아지는 것은 아닙니다. content/worksheet_answers.md 4쪽 2번과 기존 활동 66의 5열/11열 분포에 일치합니다.",
+        "sources": []
+      }
+    ]
+  },
+  {
+    "after_id": 71,
+    "slides": [
+      {
+        "section": "MSA를 바꾸어 대안 구조 탐색",
+        "title": "정답·해설 · A2의 완성 문자열과 열 번호",
+        "kind": "sequence",
+        "minutes": 2,
+        "sequence": {
+          "text": "query       ACDEFGHIKLMN   (unchanged)\nA2 before   ACDeeEFGHIKLMN\nA2 after    ACDeeEXGXIKXMN\nA2 aligned  ACDEXGXIKXMN\nA3 after    ACDE-GXIKXMN",
+          "explanation": [
+            "정렬 5·7·10열(F·H·L) → A2 원문 7·9·12번째 글자를 X로 변경",
+            "ee는 정렬 3열 뒤/4열 앞 삽입: 원문 4·5번째 글자이며 정렬 열은 없음"
+          ]
+        },
+        "body": [
+          "열 번호는 1부터 셉니다. A2 결과는 ACDeeEXGXIKXMN입니다.",
+          "소문자 ee·query 전체·기존 gap을 보존합니다. A3의 5열 -도 그대로입니다.",
+          "흔한 오류: 원문 5·7·10번째 글자를 가리거나, 먼저 대문자화해 삽입을 정렬 열로 세기."
+        ],
+        "notes": "현재 practice/msa_lab.py의 mask_homologs(rows, {5,7,10})을 직접 실행하고 저장된 masked.a3m 및 두 교사용 해설과 대조했습니다. A2의 query 정렬 문자열은 ACDEFGHIKLMN입니다. 이 문자열의 5열 F, 7열 H, 10열 L을 가리므로 aligned 결과는 ACDEXGXIKXMN이고 원문에 ee를 그대로 남기면 ACDeeEXGXIKXMN이 됩니다. A2 원문의 4·5번째 글자인 ee는 삽입이므로 정렬 번호가 없습니다. 원문 6–14번째 글자가 정렬 4–12열에 대응합니다. 1-based 원문 위치 7·9·12는 Python의 0-based 문자열 index 6·8·11입니다. A3는 원래 5열에 gap이 있어서 그 열을 X로 바꾸지 않으며 7열과 10열의 잔기만 바뀝니다. A3 결과는 ACDE-GXIKXMN입니다. 파일의 모든 homolog에 같은 정렬 열 규칙을 적용하되 query는 건너뜁니다. 이 화면은 허구 12열 정렬의 손계산 답이며 실제 단백질의 변이 설계가 아닙니다. content/worksheet_answers.md 4쪽 3번 및 practice/instructor_answers.md 6–7번에 일치합니다.",
+        "sources": []
+      },
+      {
+        "section": "MSA를 바꾸어 대안 구조 탐색",
+        "title": "정답·해설 · X로 가린 정보와 남긴 정보",
+        "kind": "table",
+        "minutes": 2,
+        "table": {
+          "headers": ["확인 항목", "정답과 이유"],
+          "widths": [2.4, 9.6],
+          "rows": [
+            ["Query", "전체 보존: 같은 표적에서 homolog 정보만 바꾸기 위해"],
+            ["소문자 ee", "보존: 삽입 정보를 남기고 정렬 열 대응을 유지"],
+            ["기존 gap -", "보존: X와 뜻이 다름. 열을 삭제하거나 잔기를 새로 넣지 않음"],
+            ["5·7·10열", "homolog 잔기 정체를 X로 가려 빈도·다른 열과의 조합 정보를 약화"]
+          ]
+        },
+        "body": [
+          "원본 MSA를 대조군으로 남깁니다. X는 잔기 정체를 가린 표식이며 gap과 같지 않습니다.",
+          "이것은 문자열 생성 실습입니다. AFsample2 실행·특정 접촉 제거·대안 구조 발견을 뜻하지 않습니다."
+        ],
+        "notes": "마스킹 결과를 쓸 수 있다는 것과 원래 예측 방법을 재현했다는 것을 분리합니다. 여기서는 지정한 5·7·10열에서 homolog의 알려진 대문자 잔기를 X로 바꿉니다. 기존 X는 X로 남고 gap은 그대로이므로 잔기 정체를 가리더라도 gap과 coverage 패턴은 남습니다. 이 조작은 단일 열의 보존도와 빈도, 다른 열과의 잔기 조합 정보를 동시에 바꿀 수 있습니다. 특정 접촉의 정보만 선택적으로 제거한 것으로 해석할 수 없습니다. 예측기의 X 인코딩과 나머지 입력에 따라 효과가 달라질 수 있어 예측 반응을 이 문자열만 보고 단정하지 않습니다. AFsample2의 실제 파이프라인은 무작위 열 선택, dropout을 포함한 예측과 여러 후보 생성 등을 수행하므로 고정 열 X 치환만 한 오늘의 실습과 같지 않습니다. 동일 query·모델·seed 집합으로 원본 대조군과 비교해야 변화의 원인을 판단할 수 있습니다. Query를 바꾸면 표적 자체가 달라지고, depth/group 결과에 추가 masking을 하면 행과 열 조작이 함께 달라지므로 오늘의 독립 조건 비교와 다른 실험이 됩니다. 현재 프로그램은 원본 7행에서 depth/group/mask 파일을 각각 만듭니다.",
+        "sources": ["afsample2_paper", "afsample2_code", "af3_input"]
+      }
+    ]
+  }
+]

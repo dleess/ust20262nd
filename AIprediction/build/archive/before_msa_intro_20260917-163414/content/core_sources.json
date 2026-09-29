@@ -1,0 +1,52 @@
+{
+  "core_af2": {
+    "title": "Jumper et al. (2021), Highly accurate protein structure prediction with AlphaFold",
+    "url": "https://www.nature.com/articles/s41586-021-03819-2",
+    "note": "AlphaFold2 primary paper"
+  },
+  "core_af3": {
+    "title": "Abramson et al. (2024), Accurate structure prediction of biomolecular interactions with AlphaFold 3",
+    "url": "https://www.nature.com/articles/s41586-024-07487-w",
+    "note": "AlphaFold3 primary paper"
+  },
+  "core_af3_input": {
+    "title": "AlphaFold 3 official input documentation",
+    "url": "https://github.com/google-deepmind/alphafold3/blob/main/docs/input.md",
+    "note": "Custom A3M, external paths, explicit empty fields; checked 2026-09-17"
+  },
+  "core_af3_output": {
+    "title": "AlphaFold 3 official output documentation",
+    "url": "https://github.com/google-deepmind/alphafold3/blob/main/docs/output.md",
+    "note": "Coordinates, per-atom pLDDT, token PAE, per-seed outputs"
+  },
+  "core_cf": {
+    "title": "ColabFold official repository",
+    "url": "https://github.com/sokrypton/ColabFold",
+    "note": "FASTA/A3M input and reproducible workflows"
+  },
+  "core_cf_nb": {
+    "title": "ColabFold AlphaFold2 official notebook",
+    "url": "https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb",
+    "note": "Custom MSA notebook entry"
+  },
+  "core_cf_cli": {
+    "title": "ColabFold batch.py official CLI implementation",
+    "url": "https://github.com/sokrypton/ColabFold/blob/main/colabfold/batch.py",
+    "note": "max-msa, num-seeds, num-models, num-recycle; checked 2026-09-17"
+  },
+  "core_calm": {
+    "title": "UniProt P0DP23, human calmodulin-1",
+    "url": "https://www.uniprot.org/uniprotkb/P0DP23/entry",
+    "note": "Canonical sequence retrieved https://rest.uniprot.org/uniprotkb/P0DP23.fasta on 2026-09-17, 149 residues including initiating methionine"
+  },
+  "core_colab_faq": {
+    "title": "Google Colab official FAQ",
+    "url": "https://research.google.com/colaboratory/faq.html",
+    "note": "GPU runtime selection, resource availability and runtime limits; checked 2026-09-17"
+  },
+  "core_calm_fasta": {
+    "title": "UniProt P0DP23 canonical FASTA: human calmodulin-1",
+    "url": "https://rest.uniprot.org/uniprotkb/P0DP23.fasta",
+    "note": "Direct public FASTA download for the bundled 149-residue example; checked 2026-09-17."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "slides": 67,
+  "minutes": 180,
+  "added_slides": [
+    37,
+    38,
+    39
+  ],
+  "prior_slide_contents_preserved": 64,
+  "prior_slide_body_pixel_differences": [],
+  "qr_checks": "Both source PNGs and exported PDF at 1x and 2x decode to official stores; PPTX image/text links and PDF annotations verified",
+  "visual_review": "Slides 37-39 inspected for Korean glyphs, wrapping, table layout, QR quiet zones and link readability",
+  "checks": [
+    "python3 build/build_deck.py",
+    "python3 build/check_format_examples.py",
+    "python3 build/check_amino_acids.py",
+    "python3 build/check_download_qr.py"
+  ],
+  "outputs": [
+    {
+      "path": "/Users/donghanlee/work/projects/ust20262nd/moleculeview/output/biomolecule_view_3h_ko.pptx",
+      "sha256": "630f4d32978b3a33dd57b81a0af728f040d6b214d5555d6a1e7effb5d7aede92",
+      "pages_or_slides": 67
+    },
+    {
+      "path": "/Users/donghanlee/work/projects/ust20262nd/moleculeview/output/biomolecule_view_3h_ko.pdf",
+      "sha256": "73518dfe0cb3568aeed93ba7c68278b3316ca30eda8c99481593351fa24724db",
+      "pages_or_slides": 67
+    },
+    {
+      "path": "/Users/donghanlee/work/projects/ust20262nd/moleculeview/output/biomolecule_view_3h_ko_pdb_cif.pptx",
+      "sha256": "630f4d32978b3a33dd57b81a0af728f040d6b214d5555d6a1e7effb5d7aede92",
+      "pages_or_slides": 67
+    },
+    {
+      "path": "/Users/donghanlee/work/projects/ust20262nd/moleculeview/output/biomolecule_view_3h_ko_pdb_cif.pdf",
+      "sha256": "73518dfe0cb3568aeed93ba7c68278b3316ca30eda8c99481593351fa24724db",
+      "pages_or_slides": 67
+    }
+  ]
+}

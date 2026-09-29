@@ -1,0 +1,492 @@
+[
+  {
+    "id": 23,
+    "section": "기본 예측과 비교 설계",
+    "title": "휴식",
+    "minutes": 10,
+    "kind": "break",
+    "body": [
+      "10분 뒤 다시 시작합니다.",
+      "다음 시간: MSA를 예측 모델에 넣는 방법"
+    ],
+    "notes": "55–65분 휴식. 다음 구간에서는 서열 파일, MSA, 예측 구조를 구분하고 입력을 바꿀 때 고정할 항목을 정한다.",
+    "sources": []
+  },
+  {
+    "id": 24,
+    "section": "기본 예측과 비교 설계",
+    "title": "서열에서 예측 구조까지",
+    "minutes": 3,
+    "kind": "text",
+    "body": [
+      "Query: 구조를 알고 싶은 단백질의 아미노산 서열",
+      "MSA: 진화적으로 관련된 서열을 정렬한 입력",
+      "모델: 서열·MSA·선택한 추가 정보를 함께 처리",
+      "출력: 원자 좌표와 모델이 추정한 신뢰도"
+    ],
+    "notes": "1강에서 본 PDB/mmCIF와 연결한다. FASTA는 입력 서열, A3M은 정렬, PDB/mmCIF는 좌표를 담는다. 구조 예측기는 MSA를 3차원 사진처럼 읽지 않는다. 각 위치의 보존과 상관관계, 학습한 구조적 규칙을 함께 사용한다. Template은 기존 구조에서 얻는 추가 정보이며 MSA와 구분한다. 모델이 반환한 파일은 실험에서 직접 측정한 좌표가 아니다. 학생에게 어떤 파일에 원자 좌표가 들어 있는지 질문한다.",
+    "sources": [
+      "core_af2",
+      "core_af3"
+    ]
+  },
+  {
+    "id": 25,
+    "section": "기본 예측과 비교 설계",
+    "title": "AlphaFold2와 AlphaFold3",
+    "minutes": 3,
+    "kind": "table",
+    "body": [
+      "이 강의의 MSA 조작 사례는 주로 AF2에서 검증되었습니다."
+    ],
+    "notes": "AF2와 AF3를 단순한 정확도 순위로 소개하지 않는다. AF2의 monomer 모델은 단백질 중심이며 복합체용 AlphaFold-Multimer가 별도로 있다. AF3는 단백질 외 분자들을 함께 다루고 diffusion 기반 좌표 생성을 사용한다. 단백질 MSA는 AF3에도 사용된다. AF2에서 관찰한 MSA 조작 효과가 AF3에서도 동일한 크기와 방식으로 나타난다고 가정하면 안 된다. 모델을 바꾸면 MSA 처리 방식과 점수의 의미도 함께 확인한다.",
+    "sources": [
+      "core_af2",
+      "core_af3"
+    ],
+    "table": {
+      "headers": [
+        "항목",
+        "AlphaFold2 계열",
+        "AlphaFold3"
+      ],
+      "rows": [
+        [
+          "주요 입력",
+          "단백질 서열·MSA·template",
+          "단백질·핵산·리간드 등"
+        ],
+        [
+          "좌표 생성",
+          "구조 모듈과 recycling",
+          "Diffusion 기반 생성"
+        ],
+        [
+          "이 강의에서 역할",
+          "MSA 조작의 주요 실습 도구",
+          "기본 예측과 확장 적용 비교"
+        ],
+        [
+          "해석 원칙",
+          "여러 예측을 만들고 검증",
+          "별도 검증 후 기법 적용"
+        ]
+      ]
+    }
+  },
+  {
+    "id": 26,
+    "section": "기본 예측과 비교 설계",
+    "title": "웹 서버와 로컬 실행",
+    "minutes": 3,
+    "kind": "text",
+    "body": [
+      "웹 서버: 서열과 분자를 입력해 빠르게 시작",
+      "로컬 AF3: JSON으로 custom MSA·template 지정",
+      "MSA 조작 실습: custom A3M을 받는 ColabFold 활용",
+      "실제 예측에는 모델 설치·계산 자원이 필요"
+    ],
+    "notes": "AlphaFold Server와 공개 AF3 로컬 코드는 입력 기능과 실행 환경이 같지 않다. 웹 화면에서 로컬 JSON의 모든 항목을 조절할 수 있다고 설명하지 않는다. 초보자는 ColabFold 노트북에서 서열 입력과 결과 파일을 먼저 경험한다. 교사는 강의 전에 접속 가능 여부와 GPU 할당을 확인하고 동일한 실습 파일을 준비한다. 수업은 오프라인 정렬 실습과 결과 판독만으로도 끝낼 수 있으며, 실제 예측 시연은 사전 준비한 환경에서 선택적으로 진행한다. 실행법은 examples/README.md에 제공한다.",
+    "sources": [
+      "core_cf",
+      "core_af3_input"
+    ]
+  },
+  {
+    "id": 27,
+    "section": "기본 예측과 비교 설계",
+    "title": "Custom MSA의 기본 조건",
+    "minutes": 3,
+    "kind": "text",
+    "body": [
+      "첫 번째 서열은 예측할 query와 일치",
+      "정렬 열은 query의 위치와 대응",
+      "A3M의 소문자는 insertion, 대문자·gap은 정렬 열",
+      "비교할 때 query·template·모델 버전을 함께 기록"
+    ],
+    "notes": "같은 단백질의 대안 구조를 비교하는 실습이므로 query를 고정한다. 소문자를 대문자로 바꾸면 삽입이 정렬 열로 오해되어 열 대응이 깨질 수 있다. 줄마다 문자열 길이가 달라도 lowercase insertion을 제외한 정렬 길이는 같아야 한다. Gap과 unknown X의 의미는 다르다. 헤더는 서열 식별과 일부 파이프라인의 종 정보 해석에 쓰일 수 있으므로 무작위로 바꾸는 것을 구조 제어 방법이라고 가르치지 않는다. 복합체 pairing은 별도의 대응 문제다.",
+    "sources": [
+      "core_cf",
+      "core_af3_input"
+    ]
+  },
+  {
+    "id": 28,
+    "section": "기본 예측과 비교 설계",
+    "title": "AF3에서 custom MSA 지정",
+    "minutes": 3,
+    "kind": "sequence",
+    "body": [
+      "아래는 protein 항목의 형식 예시입니다.",
+      "실제 FASTA와 A3M을 사용한 완전한 JSON은 examples/에서 생성합니다."
+    ],
+    "notes": "이 예시는 필드의 뜻을 읽는 용도다. sequence 자리에는 실제 query 전체가 필요하다. unpairedMsaPath는 JSON 파일 기준 상대 경로나 절대 경로다. pairedMsa의 빈 문자열은 paired MSA를 쓰지 않는다는 뜻이며 templates의 빈 목록은 template을 제공하지 않는다는 뜻이다. 필드를 생략하는 것과 명시적으로 빈 값으로 만드는 것은 처리 결과가 다를 수 있다. Path 필드는 입력 포맷 version 2부터 지원한다. examples/prepare_inputs.py가 실제 서열과 MSA의 일치를 확인하고 실행용 JSON을 만든다.",
+    "sources": [
+      "core_af3_input"
+    ],
+    "sequence": {
+      "text": "\"protein\": {\n  \"id\": \"A\",\n  \"sequence\": \"<full query sequence>\",\n  \"unpairedMsaPath\": \"target.a3m\",\n  \"pairedMsa\": \"\",\n  \"templates\": []\n}",
+      "explanation": [
+        "unpairedMsaPath: 직접 준비한 A3M",
+        "pairedMsa: 단량체 실습에서는 빈 값",
+        "templates: template 비교 조건 고정"
+      ]
+    }
+  },
+  {
+    "id": 29,
+    "section": "기본 예측과 비교 설계",
+    "title": "다른 예측 모델의 역할",
+    "minutes": 3,
+    "kind": "table",
+    "body": [
+      "모델 간 일치는 참고 근거이며 독립적인 실험 검증은 아닙니다."
+    ],
+    "notes": "사용 목적에 따라 모델을 고른다. ColabFold는 AF2를 사용하기 쉽게 만든 워크플로이며 별도의 독립 구조 모델 이름과 혼동하지 않는다. Boltz-2와 Chai-1은 여러 종류의 생체분자를 함께 다룰 수 있다. ESMFold는 언어 모델을 활용해 단일 서열에서 구조를 예측하며 별도의 입력 MSA가 필요하지 않다. 서로 다른 모델도 학습 데이터나 구조 선호를 공유할 수 있다. 한 모델에서 나온 상태가 다른 모델에서 보이지 않는다는 이유만으로 존재를 부정할 수 없다.",
+    "sources": [
+      "core_cf",
+      "core_boltz",
+      "core_chai",
+      "core_esm"
+    ],
+    "table": {
+      "headers": [
+        "도구",
+        "주요 역할",
+        "이 수업에서 비교할 점"
+      ],
+      "rows": [
+        [
+          "ColabFold / AF2",
+          "Custom A3M 예측",
+          "MSA 조건별 차이"
+        ],
+        [
+          "Boltz-2",
+          "여러 분자의 복합체 예측",
+          "A3M과 분자 조건"
+        ],
+        [
+          "Chai-1",
+          "생체분자 복합체 예측",
+          "MSA 사용 여부"
+        ],
+        [
+          "ESMFold",
+          "단일 서열 예측",
+          "MSA 없는 비교 기준"
+        ]
+      ]
+    }
+  },
+  {
+    "id": 30,
+    "section": "기본 예측과 비교 설계",
+    "title": "한 번에 한 조건씩 비교",
+    "minutes": 2,
+    "kind": "text",
+    "body": [
+      "Baseline: 원본 MSA와 정해진 seed 목록",
+      "Depth: 행 수만 줄여 여러 번 표본 추출",
+      "Cluster: 비슷한 서열 집단별 입력",
+      "Mask: 정해진 열의 정보만 가리는 조건"
+    ],
+    "notes": "표본 수가 다르면 더 많은 계산을 한 방법이 유리할 수 있다. 방법 간 생성 구조 수, seed 목록, template 유무, 모델 버전과 recycling 설정을 맞춘다. Depth는 query를 포함하는지 기록한다. 입력 MSA 행 수와 모델 내부 max-msa의 두 한도는 구분한다. 어느 조건이 대안 구조를 더 잘 회수하는지는 동일한 평가 기준으로 비교한다. 이 실습에서는 결과를 예상해서 서열을 골라 넣기보다 조작의 의미와 대조군을 설명하는 데 중점을 둔다.",
+    "sources": [
+      "core_cf"
+    ]
+  },
+  {
+    "id": 49,
+    "section": "실습과 결과 해석",
+    "title": "휴식",
+    "minutes": 10,
+    "kind": "break",
+    "body": [
+      "10분 뒤 실습을 시작합니다.",
+      "활동지와 practice/ 파일을 준비합니다."
+    ],
+    "notes": "130–140분 휴식. 컴퓨터가 없는 학생에게 활동지를 배부한다. 컴퓨터 실습의 결과와 종이 실습에서 읽는 자료는 같은 원리를 다룬다.",
+    "sources": []
+  },
+  {
+    "id": 50,
+    "section": "실습과 결과 해석",
+    "title": "실습의 목표와 파일",
+    "minutes": 2,
+    "kind": "text",
+    "body": [
+      "활동지: 진화 관계·정렬·비교 결과 해석",
+      "practice/: GPU 없이 A3M을 읽고 수정",
+      "examples/: 실제 단백질로 예측하는 선택 시연",
+      "가상 실습 자료와 실제 예측 결과를 구분"
+    ],
+    "notes": "이번 실습의 필수 부분은 GPU가 없어도 수행한다. practice의 서열과 비교 수치는 교육용 가상 자료다. 이런 짧은 서열을 실제 생물학적 대상처럼 예측기에 넣어 얻은 결과를 해석하지 않는다. examples에는 UniProt에서 받은 인간 calmodulin-1 전체 서열 149개가 있다. 실제 모델 실행은 별도로 환경을 준비해야 하며, 자료를 만든 과정에서 구조 예측을 실행한 것으로 오해하지 않도록 구분한다. 학생은 각 결과의 출처를 먼저 확인한다.",
+    "sources": []
+  },
+  {
+    "id": 51,
+    "section": "실습과 결과 해석",
+    "title": "실습 1 · 중복 사건으로 관계 판단",
+    "minutes": 4,
+    "kind": "activity",
+    "body": [
+      "조상 유전자가 먼저 A·B로 중복되었습니다.",
+      "이후 종분화로 사람·생쥐 계통이 갈라졌습니다.",
+      "사람 A–생쥐 A, 사람 A–생쥐 B의 관계는?",
+      "종 안에서만 paralog가 생기는지 설명하세요."
+    ],
+    "notes": "정답은 사람 A와 생쥐 A가 ortholog, 사람 A와 생쥐 B가 paralog다. 두 유전자의 가장 최근 공통조상에서 어떤 사건이 일어났는지 추적하게 한다. 사람 A와 사람 B도 paralog다. 서로 다른 종의 유전자라는 정보만으로 ortholog라고 할 수 없다. 학생의 설명이 이름이나 서열 유사도에만 의존하면 공통조상까지 다시 선을 따라가도록 유도한다. 종분화 후 사람 계통에서 A가 A1/A2로 중복된 경우도 구두로 추가해 co-ortholog를 확인한다.",
+    "sources": []
+  },
+  {
+    "id": 52,
+    "section": "실습과 결과 해석",
+    "title": "실습 2 · A3M을 열로 읽기",
+    "minutes": 4,
+    "kind": "activity",
+    "body": [
+      "practice/fictional_learning.a3m에서 query와 homolog 행을 찾으세요.",
+      "소문자를 제외한 정렬 열 수를 세어 보세요.",
+      "gap과 X가 의미하는 차이를 적으세요.",
+      "행 수를 줄이면 어떤 정보가 함께 줄어들까요?"
+    ],
+    "notes": "실제 실습 파일 이름은 practice/README.md를 따른다. 소문자 insertion은 정렬 열로 세지 않는다. 다만 파서가 그 삽입 길이를 별도 특징으로 활용할 수 있으므로 소문자를 무의미한 문자라고 설명하지 않는다. Gap은 해당 정렬 위치의 잔기가 없는 대응, X는 잔기 종류를 알 수 없거나 가렸다는 표식이다. Subsampling은 진화적 다양성과 특정 위치의 coverage를 함께 바꿀 수 있다. 컴퓨터가 없는 학생은 활동지의 A3M 발췌를 사용한다.",
+    "sources": [
+      "core_af3_input"
+    ]
+  },
+  {
+    "id": 53,
+    "section": "실습과 결과 해석",
+    "title": "실습 3 · 입력을 바꾸고 확인",
+    "minutes": 4,
+    "kind": "activity",
+    "body": [
+      "practice/run_practice.sh 또는 README의 Python 명령 실행",
+      "Depth 조건과 group A/B 조건을 비교",
+      "Homolog의 지정 열만 X로 가리기",
+      "각 출력에서 query와 정렬 열 수를 다시 확인"
+    ],
+    "notes": "실습 스크립트는 표준 Python만으로 실행한다. Group A/B는 미리 정한 교육용 행 분할이며 AF-Cluster의 실제 clustering 알고리즘이 아니다. Query를 포함한 depth와 homolog 수를 구분하도록 한다. 마스킹한 열을 시각적으로 확인하고 lowercase insertion과 gap이 의도대로 유지되었는지 읽는다. 서열 변형 파일을 만들었다고 구조가 바뀌었다는 증거가 생긴 것은 아니다. 구조 차이는 실제 예측 후 별도로 평가한다.",
+    "sources": []
+  },
+  {
+    "id": 54,
+    "section": "실습과 결과 해석",
+    "title": "ColabFold 노트북으로 실제 예측",
+    "minutes": 4,
+    "kind": "text",
+    "body": [
+      "1. examples/calmodulin_P0DP23.fasta의 서열 입력",
+      "2. 기본 MSA 예측 후 A3M과 결과 파일 저장",
+      "3. msa_mode를 custom으로 바꾸고 준비한 A3M 업로드",
+      "4. 조건마다 같은 모델·seed 설정으로 실행"
+    ],
+    "notes": "공식 ColabFold AlphaFold2 노트북을 사용한다. 계정 로그인과 GPU 사용 가능 여부는 수업 전에 교사가 확인한다. 첫 번째 단계에서는 FASTA header를 빼고 단백질 서열을 query_sequence에 넣는다. Custom MSA를 사용하는 단계에서는 A3M 첫 행이 동일한 전체 query인지 확인한다. 노트북 셀 실행 뒤 업로드 창이 나타나는 순서는 버전에 따라 달라질 수 있다. 본 실습의 가상 12열 정렬을 calmodulin MSA와 섞으면 안 된다. 저장한 결과에는 입력 MSA와 실행 설정을 함께 보관한다.",
+    "sources": [
+      "core_cf_nb",
+      "core_calm"
+    ]
+  },
+  {
+    "id": 55,
+    "section": "실습과 결과 해석",
+    "title": "ColabFold에서 depth 조건 비교",
+    "minutes": 4,
+    "kind": "sequence",
+    "body": [
+      "설치된 ColabFold와 실제 target.a3m이 필요합니다.",
+      "max-msa는 내부의 주 MSA·extra MSA 한도입니다."
+    ],
+    "notes": "아래는 실제 A3M을 준비한 뒤 실행할 명령이다. 두 조건의 query, 모델 수, seed, recycling을 맞춘다. 32:64는 총 depth가 32라는 뜻이 아니다. 입력 행 수가 한도보다 적으면 더 많은 행을 새로 만들어 주지 않는다. 각 seed에서 내부 subsampling에 따라 선택되는 행이 달라질 수 있다. 이 숫자는 교육용 비교 설정이며 최적값이나 대안 상태 회수를 보장하는 조합이 아니다. 전체 MSA 기준선과 비교할 때도 가능한 같은 생성 예산을 사용한다.",
+    "sources": [
+      "core_cf_cli"
+    ],
+    "sequence": {
+      "text": "colabfold_batch target.a3m results/depth32 \\\n  --model-type alphafold2_ptm --max-msa 32:64 \\\n  --num-models 1 --num-seeds 3 --num-recycle 3\n\ncolabfold_batch target.a3m results/depth128 \\\n  --model-type alphafold2_ptm --max-msa 128:256 \\\n  --num-models 1 --num-seeds 3 --num-recycle 3",
+      "explanation": [
+        "32:64 = max-seq:max-extra-seq",
+        "3개 seed는 반복 비교용 예시",
+        "별도 결과 폴더에 보관"
+      ]
+    }
+  },
+  {
+    "id": 56,
+    "section": "실습과 결과 해석",
+    "title": "Boltz-2에서 같은 A3M 사용",
+    "minutes": 3,
+    "kind": "sequence",
+    "body": [
+      "YAML의 protein 항목에 sequence와 msa 경로 지정",
+      "examples/prepare_inputs.py로 입력 파일 생성",
+      "같은 입력을 사용해 모델 간 차이를 관찰"
+    ],
+    "notes": "Boltz 공식 문서는 YAML 입력을 권장한다. 이 수업의 입력 생성기는 동일한 FASTA와 A3M에서 단량체 YAML을 만든다. msa 파일을 지정하면 해당 정렬을 사용하며 자동 MSA 서버 옵션과 구분한다. 아래 명령은 설치와 모델 파일 다운로드, 적합한 계산 자원이 준비된 환경에서 실행한다. Boltz와 AF2의 기본값과 신뢰도 점수를 숫자만으로 동일시하지 않는다. 단백질이 calmodulin이라는 이유만으로 apo/holo 구조가 저절로 구분된다고 기대하지 않는다.",
+    "sources": [
+      "core_boltz",
+      "core_calm"
+    ],
+    "sequence": {
+      "text": "python3 examples/prepare_inputs.py \\\n  examples/calmodulin_P0DP23.fasta target.a3m \\\n  --out prepared\n\nboltz predict prepared/boltz.yaml \\\n  --out_dir results/boltz",
+      "explanation": [
+        "FASTA와 MSA query 일치 검사",
+        "AF3 JSON과 Boltz YAML 생성",
+        "실제 추론은 별도 실행"
+      ]
+    }
+  },
+  {
+    "id": 57,
+    "section": "실습과 결과 해석",
+    "title": "Chai-1과 ESMFold 비교 경로",
+    "minutes": 3,
+    "kind": "table",
+    "body": [
+      "Chai-1: 전용 FASTA 형식으로 입력",
+      "MSA 사용 시 공식 변환·서버 옵션 확인",
+      "ESMFold: 별도의 입력 MSA 없이 예측",
+      "모델 변화와 MSA 변화의 효과를 따로 기록"
+    ],
+    "notes": "Chai-1은 header에 protein이라는 entity 유형을 지정하는 전용 FASTA를 사용한다. examples/prepare_inputs.py는 필요한 형식으로 복사한다. Chai-1의 custom MSA는 .aligned.pqt 형식이므로 A3M을 그대로 넘기는 AF2 사용법과 다르다. ESMFold는 단일 서열 비교 기준으로 소개한다. 언어 모델이 훈련 과정에서 진화적 서열 통계를 학습했으므로 입력 MSA가 없다는 사실이 진화 정보가 전혀 없다는 뜻은 아니다. 모델 간 결과 차이는 어느 모델이 정답인지 단독으로 결정하지 않는다.",
+    "sources": [
+      "core_chai",
+      "core_chai_msa",
+      "core_esm"
+    ],
+    "table": {
+      "headers": [
+        "실행 경로",
+        "입력·확인 사항"
+      ],
+      "rows": [
+        [
+          "chai-lab fold prepared/chai.fasta results/chai",
+          "기본 조건의 단일 서열 예측"
+        ],
+        [
+          "Chai-1에서 custom MSA 사용",
+          "공식 .aligned.pqt 변환 예제"
+        ],
+        [
+          "esm-fold -i 입력.fasta -o 결과폴더",
+          "설치된 ESMFold 환경 필요"
+        ]
+      ]
+    }
+  },
+  {
+    "id": 58,
+    "section": "실습과 결과 해석",
+    "title": "예측 구조 비교의 기준",
+    "minutes": 2,
+    "kind": "text",
+    "body": [
+      "1강에서 사용한 뷰어로 구조와 confidence 파일 열기",
+      "동일한 서열 구간과 원자를 정렬해 비교",
+      "도메인 각도·접촉·거리처럼 질문에 맞는 특징 측정",
+      "긴 loop 하나가 전체 RMSD를 키웠는지 확인"
+    ],
+    "notes": "RMSD는 구조를 맞추는 원자 선택에 따라 달라진다. 전체를 정렬한 RMSD와 한 도메인에 정렬한 뒤 다른 도메인의 이동을 보는 것은 다른 질문이다. 잔기 번호가 다른 경우 서열 대응부터 확인한다. PAE는 실제 구조를 비교해 측정한 오차가 아니라 모델의 예측 오차다. 단량체 평균 pLDDT가 높아도 도메인 간 상대 배치는 불확실할 수 있다. 점수만 읽지 말고 같은 색과 표시 방식으로 구조를 관찰하도록 한다.",
+    "sources": [
+      "core_af3_output"
+    ]
+  },
+  {
+    "id": 59,
+    "section": "실습과 결과 해석",
+    "title": "실습 4 · 대안 구조 후보 선택",
+    "minutes": 5,
+    "kind": "table",
+    "body": [
+      "가상 180잔기 표적의 사고 실험이며 실제 예측이 아닙니다.",
+      "거리: 40–140번 Cα / PAE: 두 지정 구간 사이 평균"
+    ],
+    "notes": "practice/synthetic_comparison.json의 8개 중 4개 행을 발췌했다. 가상 180잔기 표적이며 12열 가상 A3M에서 계산한 값이 아니다. 선택 거리는 40번과 140번 Cα 사이 거리이며 PAE는 구간 20–70과 110–160 사이 두 방향 블록의 평균이다. F1/F2는 가까운 거리, S1은 더 먼 거리를 보여 서로 다른 후보를 검토할 수 있다. S2는 낮은 평균 pLDDT와 높은 PAE 때문에 먼저 품질을 확인한다. F2의 평균 pLDDT가 가장 높아도 이 하나만 남기면 다양성을 놓칠 수 있다. 두 상태의 실재 여부나 점유율은 이 가상 표에서 알 수 없다. 전체 8행 비교와 상세 답안은 practice/instructor_answers.md에 있다.",
+    "sources": [],
+    "table": {
+      "headers": [
+        "후보",
+        "평균 pLDDT",
+        "구간 간 PAE",
+        "Cα 거리"
+      ],
+      "rows": [
+        [
+          "F1",
+          "91",
+          "3.1 Å",
+          "8.2 Å"
+        ],
+        [
+          "S1",
+          "88",
+          "4.4 Å",
+          "16.4 Å"
+        ],
+        [
+          "S2",
+          "50",
+          "18.0 Å",
+          "22.0 Å"
+        ],
+        [
+          "F2",
+          "92",
+          "3.0 Å",
+          "8.6 Å"
+        ]
+      ]
+    }
+  },
+  {
+    "id": 60,
+    "section": "실습과 결과 해석",
+    "title": "최종 설명 활동",
+    "minutes": 3,
+    "kind": "activity",
+    "body": [
+      "“두 유전자는 다른 종에 있으니 ortholog다.”",
+      "“MSA cluster가 3개이므로 구조 상태도 3개다.”",
+      "“예측 100개 중 20개가 열렸으니 점유율은 20%다.”",
+      "각 주장에 빠진 근거를 한 문장씩 적으세요."
+    ],
+    "notes": "첫 주장에는 유전자 계통과 종분화/중복 사건 정보가 빠졌다. 두 번째에는 서열 cluster와 구조 상태의 대응 검증이 빠졌다. 세 번째에는 샘플링 분포가 물리적 평형분포에 대응한다는 검증이 빠졌다. 학생에게 무조건 틀렸다고 외우게 하기보다 무엇을 추가로 알아야 하는지 묻는다. 평가 기준은 사건 기준으로 관계를 설명하는가, 입력 분할과 구조 분류를 구분하는가, 모델 점수와 물리적 확률을 구분하는가이다. 정답은 배포 활동지에 넣지 않는다.",
+    "sources": []
+  },
+  {
+    "id": 61,
+    "section": "실습과 결과 해석",
+    "title": "오늘 배운 내용",
+    "minutes": 1,
+    "kind": "text",
+    "body": [
+      "진화 관계는 공통조상에서 일어난 사건으로 판단",
+      "MSA는 진화적 대응을 가정한 정렬",
+      "MSA 조작은 서로 다른 구조 가설을 탐색하는 도구",
+      "후보 구조는 신뢰도·재현성·실험 근거로 평가"
+    ],
+    "notes": "학생이 자기 연구 대상에 적용할 때 첫 질문은 어떤 단백질이며 어떤 구조 차이를 확인하려는가이다. 모든 단백질에서 여러 상태를 얻는 것이 수업의 성공 기준은 아니다. 변화를 얻지 못해도 입력 품질과 대조 조건을 확인하면 의미 있는 기록이다. 후속 과제로 benign한 관심 단백질 하나의 accession, 서열 경계, MSA 기준선, 조작 조건, 판정 지표를 제안하도록 할 수 있다.",
+    "sources": []
+  },
+  {
+    "id": 62,
+    "section": "실습과 결과 해석",
+    "title": "논문과 실행 문서",
+    "minutes": 1,
+    "kind": "references",
+    "body": [
+      "슬라이드별 출처는 발표자 노트에 포함되어 있습니다.",
+      "전체 목록은 content/sources.json에 있습니다."
+    ],
+    "notes": "관련 문서는 계속 바뀌므로 실제 시연 전에 설치한 버전의 도움말과 공식 문서를 다시 확인한다. 이 강의는 MSA 조작을 손쉽게 상태를 제어하는 보장된 절차로 설명하지 않는다. 모든 수치 예제와 가상 서열은 실제 실험 자료와 명확히 구분한다. 주요 논문과 도구 문서 링크를 소개하고 질문을 받는다.",
+    "sources": [
+      "core_af2",
+      "core_af3",
+      "core_cf",
+      "core_boltz",
+      "core_chai"
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "slides": 61,
+  "minutes": 180,
+  "amino_acid_slides": [
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "amino_acids": 20,
+  "format_slides": [
+    27,
+    28,
+    29
+  ],
+  "breaks": [
+    [
+      81,
+      91
+    ],
+    [
+      133,
+      143
+    ]
+  ],
+  "checks": [
+    "python3 build/build_deck.py",
+    "python3 build/check_amino_acids.py",
+    "python3 build/check_format_examples.py"
+  ],
+  "visual_review": "Six new slides inspected; 52 of 55 original slide bodies identical, timetable and two break texts updated.",
+  "outputs": [
+    "output/biomolecule_view_3h_ko.pptx",
+    "output/biomolecule_view_3h_ko.pdf"
+  ]
+}

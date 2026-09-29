@@ -1,0 +1,504 @@
+[
+  {
+    "id": 1,
+    "section": "먼저 이해하기 · MSA와 AlphaFold",
+    "title": "MSA와 단백질 구조 예측",
+    "minutes": 1,
+    "kind": "text",
+    "body": [
+      "먼저 MSA가 AlphaFold에 주는 정보와 중요한 이유를 이해하기",
+      "진화 관계·coevolution → MSA 조작 → 구조와 신뢰도 읽기",
+      "개념 설명 직후 짧은 실습 · 휴식 포함 3시간"
+    ],
+    "notes": "시작부터 ‘왜 AlphaFold를 배우는데 정렬과 진화를 먼저 보나요?’에 답합니다. 도입 2–4장은 query에서 MSA와 구조로 이어지는 흐름, 짧은 MSA의 보존·공변화 예제, 정보의 질과 진화 관계가 중요한 이유를 보여 줍니다. 이후 homology·ortholog·paralog를 배워 정렬에 들어온 서열들이 어떤 관계인지 읽고, coevolution과 MSA 입력 조작으로 연결합니다. 활동지 1쪽은 진화 관계, 2쪽은 A3M, 3쪽은 coevolution, 4쪽은 입력 조작, 5쪽은 lDDT 계산과 pLDDT 학습, 6쪽은 pLDDT·PAE, 7쪽은 결과 해석입니다. 교육용 가상 정렬과 실제 calmodulin 예측 입력을 구분합니다.",
+    "sources": [
+      "intro_af2_overview",
+      "evo_ebi_msa"
+    ]
+  },
+  {
+    "id": 5,
+    "section": "진화 관계와 MSA",
+    "title": "Homology: 얼마나 닮았나보다 어디에서 왔나",
+    "minutes": 2,
+    "kind": "table",
+    "body": [
+      "상동성(homology)은 공통 조상에서 유래했다는 관계",
+      "“70% homology” 대신 “정의한 정렬에서 70% identity”라고 표현"
+    ],
+    "notes": "도입의 질문 ‘MSA에 모인 서열들은 어떤 관계인가?’를 이어받습니다. 상동성은 두 서열의 진화적 기원에 대한 관계이고, 동일성은 정렬에서 측정하는 양입니다. 실제 분석에서는 상동 여부의 근거가 강하거나 약할 수 있지만, 상동성을 백분율로 표시하지 않습니다. 높은 서열 동일성은 상동성 추론의 근거가 될 수 있으나 짧은 구간의 우연한 일치만으로 전체 단백질의 기원을 판단하지 않습니다. Similarity는 어떤 치환을 비슷하다고 볼지 점수 체계에 의존한다는 점도 구분합니다.",
+    "sources": [
+      "evo_ncbi_glossary",
+      "evo_ebi_sequence"
+    ],
+    "table": {
+      "headers": [
+        "용어",
+        "무엇을 말하나"
+      ],
+      "rows": [
+        [
+          "Homology",
+          "공통 조상에서 유래한 관계"
+        ],
+        [
+          "Identity",
+          "정렬에서 같은 잔기의 비율"
+        ],
+        [
+          "Similarity",
+          "정의한 점수 체계에서 유사한 잔기 관계"
+        ]
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "section": "진화 관계와 MSA",
+    "title": "Ortholog와 paralog: 갈라진 사건을 묻는다",
+    "minutes": 2,
+    "kind": "table",
+    "body": [
+      "두 유전자의 가장 최근 공통 조상에서 일어난 사건을 확인",
+      "종 이름·서열 유사도·기능의 같고 다름만으로 정하지 않음"
+    ],
+    "notes": "오늘은 유전자 중복과 종 분화를 중심으로 한 단순한 진화 모형을 사용합니다. 두 유전자를 거슬러 올라가 만나는 가장 최근 공통 조상 노드가 종 분화이면 ortholog, 유전자 중복이면 paralog입니다. 서로 다른 종에 존재하는 paralog도 있으므로 종이 다르다는 이유만으로 ortholog라고 부르면 안 됩니다. 이 관계는 기능 실험 결과가 아니라 진화 사건으로 정의됩니다.",
+    "sources": [
+      "evo_sonnhammer",
+      "evo_ensembl_tree"
+    ],
+    "table": {
+      "headers": [
+        "관계",
+        "기준 사건",
+        "기억할 점"
+      ],
+      "rows": [
+        [
+          "Ortholog",
+          "종 분화(Speciation, S)",
+          "기능 동일성을 보장하지 않음"
+        ],
+        [
+          "Paralog",
+          "유전자 중복(Duplication, D)",
+          "같은 종 또는 다른 종에 존재"
+        ]
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "section": "진화 관계와 MSA",
+    "title": "Species tree와 gene tree는 다른 질문",
+    "minutes": 2,
+    "kind": "sequence",
+    "body": [
+      "Species tree: 종들의 분기 관계",
+      "Gene tree: 특정 유전자 가족의 계보와 중복·소실"
+    ],
+    "notes": "종 계통수의 말단은 종이고 유전자 계통수의 말단은 개별 유전자입니다. 따라서 한 종에서 유전자가 중복되면 gene tree에는 같은 종 이름을 가진 말단이 여러 개 나타납니다. 실제 연구에서는 유전자 계통수를 종 계통수와 대조하는 reconciliation을 통해 중복과 종 분화를 추론합니다. 여기서는 분기 길이와 시간 축은 생략하고 사건의 순서만 읽습니다.",
+    "sources": [
+      "evo_ensembl_tree"
+    ],
+    "sequence": {
+      "text": "교육용 가상 예시\nSpecies tree          Gene tree\n     S                     S\n    / \\                   / \\\n   A   B                 D   B_g\n                        / \\\n                     A_g1 A_g2",
+      "explanation": [
+        "S = 종 분화, D = 유전자 중복",
+        "A와 B는 종 이름; A_g1 등은 유전자 이름"
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "section": "진화 관계와 MSA",
+    "title": "예제 1: 종 분화보다 먼저 중복되었다면",
+    "minutes": 2,
+    "kind": "sequence",
+    "body": [
+      "A_1–B_1은 ortholog; A_1–A_2와 A_1–B_2는 paralog",
+      "같은 종 안의 관계와 다른 종 사이의 관계를 모두 확인"
+    ],
+    "notes": "먼저 조상 유전자가 1번과 2번 계열로 중복되고, 이후 A와 B가 종 분화한 가상 사례입니다. A_1과 B_1의 가장 최근 공통 조상은 왼쪽 S이므로 ortholog입니다. A_1과 A_2 또는 A_1과 B_2를 거슬러 올라가면 가장 최근 공통 조상은 맨 위 D이므로 두 쌍 모두 paralog입니다. 특히 A_1과 B_2는 다른 종에 있는 paralog라는 점을 손가락으로 경로를 짚어 설명합니다.",
+    "sources": [
+      "evo_sonnhammer",
+      "evo_ensembl_loss"
+    ],
+    "sequence": {
+      "text": "교육용 가상 계통수: 중복 → 종 분화\n              D\n           /     \\\n        S           S\n       / \\         / \\\n     A_1 B_1     A_2 B_2",
+      "explanation": [
+        "D에서 1번·2번 유전자 계열이 먼저 나뉨",
+        "두 S는 같은 A–B 종 분화를 각 유전자 계열에서 표시"
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "section": "진화 관계와 MSA",
+    "title": "예제 2: 종 분화 뒤에 중복되었다면",
+    "minutes": 2,
+    "kind": "sequence",
+    "body": [
+      "A_1과 A_2는 서로 paralog",
+      "A_1과 A_2는 각각 B_1의 ortholog: B_1에 대한 co-orthologs"
+    ],
+    "notes": "이번에는 종 분화가 먼저 발생하고 A 계통 안에서만 유전자가 중복되었습니다. A_1과 A_2를 비교하면 D에서 만나지만, 어느 쪽을 B_1과 비교하든 S에서 만나므로 각각 ortholog입니다. 따라서 orthology는 반드시 일대일 관계일 필요가 없으며 여기서는 일대다 관계입니다. Co-ortholog라는 표현은 무엇에 대한 관계인지 기준 상대인 B_1을 함께 말해야 정확합니다.",
+    "sources": [
+      "evo_sonnhammer",
+      "evo_ensembl_types"
+    ],
+    "sequence": {
+      "text": "교육용 가상 계통수: 종 분화 → 중복\n              S\n           /     \\\n          D       B_1\n         / \\\n       A_1 A_2",
+      "explanation": [
+        "A 계통에만 중복이 생긴 경우",
+        "A_1–B_1과 A_2–B_1은 각각 orthology 관계"
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "section": "진화 관계와 MSA",
+    "title": "Paralog는 종 안에도, 종 사이에도 있다",
+    "minutes": 1,
+    "kind": "table",
+    "body": [
+      "“같은 종이면 paralog, 다른 종이면 ortholog”는 불완전한 규칙",
+      "In-/out-paralog는 비교하는 종 분화 시점에 대한 상대적 용어"
+    ],
+    "notes": "이 표는 앞의 두 계통수를 한 번 더 정리하는 장입니다. Within-species와 between-species는 현재 유전자가 어느 종에 있는지를 말하고, inparalog와 outparalog는 기준 종 분화보다 중복이 나중인지 이전인지를 말합니다. 따라서 같은 종에 있는 paralog라는 사실만으로 중복이 그 종에서 최근에 일어났다고 결론 내릴 수 없습니다. 초보 단계에서는 세부 명칭 암기보다 D와 S의 순서를 먼저 설명하게 합니다.",
+    "sources": [
+      "evo_sonnhammer",
+      "evo_ensembl_loss"
+    ],
+    "table": {
+      "headers": [
+        "관찰 또는 용어",
+        "해석 기준"
+      ],
+      "rows": [
+        [
+          "Within-species paralog",
+          "같은 종의 두 유전자; 조상 중복 시점은 별도 확인"
+        ],
+        [
+          "Between-species paralog",
+          "다른 종의 두 유전자; 공통 조상 노드는 D"
+        ],
+        [
+          "Inparalog / outparalog",
+          "기준 종 분화 뒤 / 앞의 중복에서 유래"
+        ]
+      ]
+    }
+  },
+  {
+    "id": 11,
+    "section": "진화 관계와 MSA",
+    "title": "유전자 소실: 남은 하나끼리 비교하면 생기는 착시",
+    "minutes": 2,
+    "kind": "sequence",
+    "body": [
+      "각 종에 한 개씩 남았어도 일대일 ortholog라는 보장은 없음",
+      "다른 종의 서열·유전자 계통수·주변 유전자 정보가 판별에 도움"
+    ],
+    "notes": "고대 중복 후 A에서는 2번 계열, B에서는 1번 계열이 사라진 가상 사례입니다. 현재 남은 A_1과 B_2만 보면 각 종에 하나씩 있는 대응처럼 보이지만, 이들의 가장 최근 공통 조상은 D입니다. 그러므로 서로 paralog이며 단순한 일대일 검색 결과로 진화 역사를 확정할 수 없습니다. 실제 자료에서는 소실뿐 아니라 불완전한 조립이나 주석 누락도 유전자가 없어 보이는 이유가 될 수 있음을 덧붙입니다.",
+    "sources": [
+      "evo_ensembl_loss",
+      "evo_ensembl_tree"
+    ],
+    "sequence": {
+      "text": "교육용 가상 계통수: 중복 뒤 서로 다른 사본 소실\n              D\n           /     \\\n        S           S\n       / \\         / \\\n     A_1 [소실] [소실] B_2\n          B_1     A_2",
+      "explanation": [
+        "현재 관찰되는 유전자는 A_1과 B_2",
+        "현재 사본 수와 과거 분기 사건을 구분"
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "section": "진화 관계와 MSA",
+    "title": "바로 실습 · Ortholog와 paralog 판정",
+    "minutes": 4,
+    "kind": "activity",
+    "body": [
+      "① A_x–A_y  ② A_x–B_z  ③ A_y–B_z 관계를 판정",
+      "각 쌍의 공통 조상에 동그라미 → S/D → 관계 이름",
+      "활동지 1쪽: 분기 사건을 표시하고 짝과 비교"
+    ],
+    "notes": "개인 풀이 1분, 짝 토론 1분, 전체 해설 2분으로 운영합니다. 정답은 A_x–A_y가 D에서 만나는 paralog, A_x–B_z와 A_y–B_z가 각각 S에서 만나는 ortholog입니다. A_x와 A_y는 B_z에 대한 co-orthologs이며, 서로가 ortholog라는 뜻은 아닙니다. 종이 다르다는 이유만 쓴 답에는 가장 최근 공통 조상 노드를 표시하도록 다시 요청하고, 화면을 읽기 어려운 학생에게는 동일 내용을 구두로 설명합니다. 활동지 1쪽을 이어서 사용합니다. 상황 A의 H_A–M_A는 S에 의한 ortholog, H_A–H_B와 H_A–M_B는 D에 의한 paralog입니다. 상황 B에서 H1–H2는 paralog, H1/H2는 각각 M의 ortholog이며 M에 대한 co-orthologs입니다. 4분 안에는 화면 예제와 활동지 1번을 우선 풀고 나머지는 해설·확장 문항으로 둡니다.",
+    "sources": [
+      "evo_sonnhammer"
+    ],
+    "sequence": {
+      "text": "교육용 가상 계통수\n            S\n          /   \\\n         D     B_z\n        / \\\n      A_x A_y",
+      "explanation": [
+        "가지 길이는 의미 없음",
+        "현재 이름이 아니라 가장 최근 공통 조상 사건으로 판정"
+      ]
+    }
+  },
+  {
+    "id": 13,
+    "section": "진화 관계와 MSA",
+    "title": "Ortholog여도 기능이 완전히 같지는 않다",
+    "minutes": 1,
+    "kind": "table",
+    "body": [
+      "진화 관계는 기능 추론의 근거이며 기능 실험의 대체물이 아님",
+      "최고 유사도 hit 하나만으로 orthology 또는 기능을 확정하지 않음"
+    ],
+    "notes": "Ortholog는 기능을 추론할 때 유용하지만 모든 생물학적 기능이 동일하다는 정의는 아닙니다. 기능은 촉매 작용, 기질, 발현 조직, 상호작용 상대 등 여러 층위로 나뉘므로 어느 층위의 유사성을 말하는지 명시해야 합니다. 실제 기능 자료를 비교한 연구도 ortholog와 paralog의 차이를 통계적 경향으로 다루며 절대 규칙으로 다루지 않습니다. 구조 예측용 MSA에는 목적에 따라 여러 상동 계열이 포함될 수 있으므로 ortholog만 남겨야 한다는 규칙도 자동으로 적용하지 않습니다.",
+    "sources": [
+      "evo_function",
+      "evo_ensembl_tree"
+    ],
+    "table": {
+      "headers": [
+        "알 수 있는 것",
+        "추가 확인할 것"
+      ],
+      "rows": [
+        [
+          "Orthology / paralogy",
+          "기원과 분기 사건"
+        ],
+        [
+          "높은 서열 동일성",
+          "정렬 길이·도메인 구성·진화 관계"
+        ],
+        [
+          "비슷한 예측 구조",
+          "기질·활성·발현·실험 조건"
+        ]
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "section": "진화 관계와 MSA",
+    "title": "유전자 가족에서 MSA로: 대응 위치를 제안한다",
+    "minutes": 2,
+    "kind": "text",
+    "body": [
+      "Multiple sequence alignment(MSA): 여러 상동 서열의 대응 위치를 정렬",
+      "정렬은 비교를 위한 가설이며 모든 열이 정확하다는 보장은 없음",
+      "너무 먼 서열·부분 서열·다른 도메인 구성은 별도 점검"
+    ],
+    "notes": "계통수를 통해 누가 누구와 관련되는지 생각했다면, 이제 각 서열의 어느 위치끼리 비교할지 정해야 합니다. MSA는 삽입과 결실을 고려해 대응한다고 보는 잔기들을 같은 열에 배치합니다. 특히 짧은 반복, 매우 다른 길이, 도메인 구성이 다른 서열에서는 정렬의 불확실성이 커질 수 있습니다. 이후 구조 예측에서 사용되는 정보는 이런 대응 관계에 영향을 받으므로 행 수를 세기 전에 정렬 자체를 읽는 습관을 들입니다.",
+    "sources": [
+      "evo_ebi_msa",
+      "evo_hhsuite"
+    ]
+  },
+  {
+    "id": 15,
+    "section": "진화 관계와 MSA",
+    "title": "MSA 읽기: 행·열·query·gap",
+    "minutes": 3,
+    "kind": "sequence",
+    "body": [
+      "행(row)은 서열, 열(column)은 대응 위치, “-”는 gap",
+      "Query는 이번 분석의 기준 서열; 항상 조상 서열이라는 뜻은 아님"
+    ],
+    "notes": "가상 정렬에서 한 행을 가로로 읽으면 하나의 단백질 서열을, 한 열을 세로로 읽으면 대응한다고 본 위치들의 상태를 읽습니다. Query의 세 번째 열에는 잔기가 없으므로 이 열의 정렬 번호와 query의 잔기 번호는 다릅니다. Gap은 이 위치에 정렬된 잔기가 없다는 표시이지 미지의 아미노산이라는 기호가 아닙니다. 이 짧은 예시는 MSA 문법을 위한 것이며 실제 단백질의 구조나 기능을 예측할 수 있는 자료가 아닙니다.",
+    "sources": [
+      "evo_ebi_msa"
+    ],
+    "sequence": {
+      "text": "교육용 가상 서열: 실제 단백질 아님\n정렬 열   123456789\nquery     AC-DEFGHI\nseq_A     ACQDEYGHI\nseq_B     AC-NEFG-I\nseq_C     AS-DEF-HI",
+      "explanation": [
+        "4행 × 9열; query의 실제 길이는 8잔기",
+        "3열의 Q는 query에 대응 잔기가 없는 삽입 위치"
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "section": "진화 관계와 MSA",
+    "title": "Gap 하나가 잔기 번호를 바꾼다",
+    "minutes": 2,
+    "kind": "sequence",
+    "body": [
+      "정렬 열 번호와 query 잔기 번호를 구분해서 기록",
+      "Gap만으로 삽입·결실의 진화 방향을 확정할 수 없음"
+    ],
+    "notes": "같은 정렬을 다시 사용해 query의 D가 정렬에서는 4열이지만 원래 서열에서는 3번 잔기임을 확인합니다. 구조 파일의 잔기 번호나 실험에서 사용한 construct 번호는 여기서도 다시 달라질 수 있으므로 별도 대응이 필요합니다. 또한 seq_A의 Q를 query 대비 삽입으로 표현할 수 있어도 어느 조상에서 실제 삽입 또는 결실이 일어났는지는 이 정렬만으로 결정하지 못합니다. 이후 마스킹 위치를 정할 때 번호 체계를 혼동하지 않도록 기록 단위를 명시합니다.",
+    "sources": [
+      "evo_ebi_pairwise"
+    ],
+    "sequence": {
+      "text": "교육용 가상 서열\n정렬 열       1 2 3 4 5 6 7 8 9\nquery         A C - D E F G H I\nquery 잔기    1 2 - 3 4 5 6 7 8",
+      "explanation": [
+        "정렬 4열 = query의 D3",
+        "원래 query 서열: ACDEFGHI"
+      ]
+    }
+  },
+  {
+    "id": 17,
+    "section": "진화 관계와 MSA",
+    "title": "FASTA: 이름 줄과 서열 줄부터 읽기",
+    "minutes": 1,
+    "kind": "sequence",
+    "body": [
+      "“>”로 시작하는 줄은 이름·설명, 다음 줄은 서열",
+      "여러 FASTA 서열이 있다고 자동으로 MSA가 되는 것은 아님"
+    ],
+    "notes": "헤더와 서열을 분리해 읽는 것만으로 많은 입력 실수를 줄일 수 있습니다. 첫 번째 줄의 synthetic이라는 말은 자료의 출처 설명이며 단백질 서열에 포함되지 않습니다. 서열 길이가 서로 다를 수 있는 일반 FASTA와 gap을 넣어 대응 열을 맞춘 aligned FASTA를 구분합니다. 일반 FASTA에서 대소문자가 가지는 의미는 도구에 따라 다를 수 있으므로 다음 장의 A3M 규칙을 모든 FASTA 파일에 그대로 적용하지 않습니다.",
+    "sources": [
+      "evo_ncbi_fasta"
+    ],
+    "sequence": {
+      "text": ">query_synthetic  educational example\nACDEFGHI\n>seq_A_synthetic  educational example\nACQDEYGHI",
+      "explanation": [
+        "두 서열의 실제 길이는 8과 9",
+        "이 텍스트는 정렬 전의 교육용 가상 FASTA"
+      ]
+    }
+  },
+  {
+    "id": 18,
+    "section": "진화 관계와 MSA",
+    "title": "A3M: 대문자와 소문자는 서로 다른 역할",
+    "minutes": 3,
+    "kind": "sequence",
+    "body": [
+      "대문자 = match 상태의 잔기; 소문자 = 삽입 잔기; “-” = 결실 표시",
+      "Match는 query와 같은 아미노산이라는 뜻이 아님"
+    ],
+    "notes": "A3M에서는 삽입 열의 빈칸을 생략할 수 있어 텍스트 줄의 길이가 달라 보입니다. 예시의 소문자 q는 삽입 잔기이고 대문자 Y는 query의 F와 다른 잔기지만 같은 match 열에 대응합니다. 소문자를 제외해 읽으면 각 행의 match와 deletion 위치는 여덟 개이며 query의 위치와 맞출 수 있습니다. 삽입 정보의 처리 방식은 예측 파이프라인마다 다르므로 파일 원본을 무조건 대문자로 바꾸거나 모든 소문자를 임의 삭제해서 저장하지 않습니다.",
+    "sources": [
+      "evo_hhsuite"
+    ],
+    "sequence": {
+      "text": "교육용 가상 A3M\n>query\nACDEFGHI\n>seq_A\nACqDEYGHI\n>seq_B\nACNEFG-I",
+      "explanation": [
+        "seq_A: q는 삽입, Y는 대응 열의 치환",
+        "겉보기 문자 수가 달라도 같은 match 열을 표현 가능"
+      ]
+    }
+  },
+  {
+    "id": 20,
+    "section": "진화 관계와 MSA",
+    "title": "Coverage와 identity: 분모를 함께 적는다",
+    "minutes": 2,
+    "kind": "table",
+    "body": [
+      "Coverage: query의 어느 정도를 비교했는가?",
+      "Identity: 비교한 위치 중 어느 정도가 같은 잔기인가?"
+    ],
+    "notes": "이 강의의 계산 예에서는 coverage를 query 전체 잔기 중 상대 잔기와 짝지어진 위치의 비율로 정의합니다. Identity는 두 서열 모두 잔기가 있는 비교 위치 중 같은 잔기의 비율로 계산합니다. 실제 프로그램은 gap 포함 여부나 길이 기준이 달라질 수 있으므로 출력 문서를 확인하고 숫자만 비교하지 않습니다. 100% identity라도 query의 아주 짧은 부분만 덮는 hit는 전체 단백질이 동일한 특징을 가진다는 근거가 되지 않습니다.",
+    "sources": [
+      "evo_ncbi_glossary",
+      "evo_hhsuite"
+    ],
+    "table": {
+      "headers": [
+        "교육용 정의",
+        "계산"
+      ],
+      "rows": [
+        [
+          "Query coverage",
+          "짝지어진 query 잔기 수 / query 길이"
+        ],
+        [
+          "Identity",
+          "같은 잔기 수 / 양쪽에 잔기가 있는 비교 위치 수"
+        ],
+        [
+          "보고 예",
+          "identity 80%, coverage 25%; 각 분모도 기록"
+        ]
+      ]
+    }
+  },
+  {
+    "id": 21,
+    "section": "진화 관계와 MSA",
+    "title": "바로 실습 · Coverage와 identity 계산",
+    "minutes": 3,
+    "kind": "activity",
+    "body": [
+      "Query 길이 8; A와 B 각각 coverage와 identity를 계산",
+      "분모는 앞 장의 교육용 정의를 사용",
+      "전체 query를 설명할 때 어떤 차이를 함께 보고해야 하는가?"
+    ],
+    "notes": "개인 계산 1분 후 짝과 분모를 확인하고 1분 동안 해설합니다. 정답은 A가 비교 위치 4개 모두 같으므로 coverage 4/8=50%, identity 4/4=100%입니다. B는 비교 위치 8개 중 6개가 같으므로 coverage 8/8=100%, identity 6/8=75%입니다. 어느 하나가 무조건 더 좋은 MSA 입력이라고 정하기보다는 길이, 상동성 근거, 정렬 신뢰도와 분석 목적을 함께 확인한다는 답으로 마무리합니다.",
+    "sources": [
+      "evo_ncbi_glossary"
+    ],
+    "sequence": {
+      "text": "교육용 가상 서열\nquery   ACDEFGHI\nA       ACDE----\nB       ACNEYGHI",
+      "explanation": [
+        "A의 끝부분 gap은 query 위치를 덮지 않음",
+        "Coverage와 identity의 분모를 각각 적기"
+      ]
+    }
+  },
+  {
+    "id": 22,
+    "section": "진화 관계와 MSA",
+    "title": "Conservation: 한 열에서 무엇이 유지되는가?",
+    "minutes": 2,
+    "kind": "sequence",
+    "body": [
+      "한 위치의 잔기 분포를 읽는 것이 보존도(conservation)",
+      "보존된 위치는 구조·기능 제약의 후보이며 원인은 추가 확인"
+    ],
+    "notes": "각 열을 세로로 읽고 어떤 잔기가 얼마나 자주 나타나는지 확인합니다. 예시에서 첫 번째 열은 모두 A이지만 두 번째 열은 C와 S로 달라집니다. 보존은 구조 안정성이나 기능적 제약과 관련될 수 있지만 표집된 서열이 서로 너무 비슷해 보존적으로 보이는 경우도 있습니다. 네 개의 짧은 가상 서열만으로 생물학적 중요도를 추정하지 않고 개념을 익히는 데만 사용합니다.",
+    "sources": [
+      "evo_ebi_sequence",
+      "evo_covariation"
+    ],
+    "sequence": {
+      "text": "교육용 가상 서열\nseq_1   ACDK\nseq_2   ASDK\nseq_3   ACEK\nseq_4   ASER\n열      1234",
+      "explanation": [
+        "보존도는 한 열의 잔기 분포에 대한 질문",
+        "“모두 같다”와 “서로 독립적인 근거가 많다”를 구분"
+      ]
+    }
+  },
+  {
+    "id": 33,
+    "section": "진화 관계와 MSA",
+    "title": "Raw depth와 Neff: 행 수와 다양성은 다르다",
+    "minutes": 3,
+    "kind": "table",
+    "body": [
+      "Raw depth는 서열 행 수; 같은 서열이 많아도 그대로 증가",
+      "Neff는 중복·유사도를 반영하는 지표이며 계산법을 반드시 명시"
+    ],
+    "notes": "가중치 합으로 정의하는 한 방식에서는 각 서열과 충분히 비슷한 이웃 수를 자기 자신까지 포함해 센 뒤 그 역수를 가중치로 사용합니다. 모두 같은 서열 100개라면 각 가중치는 1/100이므로 합은 1입니다. 이것은 교육용 재가중 예시이며 HH-suite의 엔트로피 기반 Neff 등 다른 정의와 수치를 그대로 비교할 수 없습니다. Neff는 실제 독립 표본 수의 정답도 아니고 구조 예측 정확도를 보장하는 점수도 아닙니다. 마지막30초에 활동지2쪽4번을 구두로 확인합니다. 같은 행 복제는 raw depth를 높여도 새로운 독립적 진화 사건을 만들지 않습니다.",
+    "sources": [
+      "evo_morcos",
+      "evo_hhsuite",
+      "evo_weighting"
+    ],
+    "table": {
+      "headers": [
+        "교육용 재가중 예",
+        "Raw depth",
+        "가중치 합"
+      ],
+      "rows": [
+        [
+          "완전히 동일한 서열 100개",
+          "100",
+          "100 × 1/100 = 1"
+        ],
+        [
+          "서로 기준 이상 유사한 쌍이 없는 100개",
+          "100",
+          "100 × 1 = 100"
+        ],
+        [
+          "실제 MSA",
+          "행 수를 기록",
+          "정의·유사도 기준·coverage도 기록"
+        ]
+      ]
+    }
+  }
+]
