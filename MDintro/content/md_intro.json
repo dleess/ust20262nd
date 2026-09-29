@@ -1,0 +1,1221 @@
+[
+  {
+    "id": 1,
+    "section": "",
+    "title": "Molecular dynamics(MD) 입문",
+    "subtitle": "정지된 structure에서 시간에 따라 움직이는 structure로",
+    "minutes": 2,
+    "kind": "cover",
+    "body": [
+      "1강 2ITY: Met793 backbone(주사슬) N – gefitinib N3 거리 2.670 Å",
+      "오늘의 질문: 물속 300 K에서도 이 거리가 계속 유지될까?",
+      "1시간 개념 강의 → 이어지는 2시간 실습에서 직접 계산"
+    ],
+    "notes": "1강에서 2ITY의 Met793 주사슬(backbone) N과 gefitinib N3 사이 거리를 2.670 Å로 재었습니다. 이 값은 PDB 파일에 담긴 좌표 한 set에서 잰 거리이며, 시간에 따라 어떻게 변하는지는 파일에 들어 있지 않습니다. 오늘은 같은 structure를 물속, 300 K 조건에 두고 atom이 움직이도록 계산하는 방법인 MD를 배웁니다. 이 1시간은 원리와 결과 읽는 법에 집중하고, 명령 실행과 그래프 작성은 이어지는 2시간 실습에서 합니다. 수식은 F = m·a 하나만 사용합니다.",
+    "sources": [
+      "PDB2ITY",
+      "YUN2007"
+    ]
+  },
+  {
+    "id": 2,
+    "section": "오늘의 질문",
+    "title": "오늘 1시간, 이어서 2시간 실습",
+    "minutes": 2,
+    "kind": "table",
+    "table": {
+      "headers": [
+        "수업",
+        "질문",
+        "다루는 자료"
+      ],
+      "rows": [
+        [
+          "1강 Biomolecule View",
+          "약물 주변에 무엇이 있는가?",
+          "좌표 한 set (PDB · mmCIF)"
+        ],
+        [
+          "2강 AI structure 예측",
+          "예측 structure를 얼마나 믿을까?",
+          "예측 coordinates + pLDDT · PAE"
+        ],
+        [
+          "3강 MD 개념 · 오늘 1시간",
+          "structure는 시간에 따라 어떻게 움직일까?",
+          "trajectory = 시간 순서의 coordinates"
+        ],
+        [
+          "3강 MD 실습 · 2시간",
+          "직접 준비 → 실행 → 분석",
+          "trajectory 분석 그래프"
+        ]
+      ],
+      "widths": [
+        3.6,
+        4.4,
+        4.0
+      ]
+    },
+    "body": [
+      "오늘은 원리와 결과 읽는 법까지 다룹니다. 명령 실행은 실습 시간에 합니다.",
+      "실습 출력에 나오는 영어 이름을 슬라이드에서도 그대로 씁니다."
+    ],
+    "notes": "세 강의가 같은 structure를 서로 다른 질문으로 본다는 흐름을 확인합니다. 1강은 좌표를 읽었고 2강은 예측 좌표와 confidence를 읽었습니다. 오늘은 coordinates가 시간에 따라 바뀌는 기록인 trajectory를 읽는 법을 배웁니다. 실습 프로그램의 출력에는 temperature, pressure, density, RMSD 같은 영어 이름이 그대로 나오므로 슬라이드도 같은 이름을 씁니다. 실습 도구가 GROMACS가 아니어도 이름과 옵션만 달라지고 개념은 같습니다.",
+    "sources": []
+  },
+  {
+    "id": 3,
+    "section": "MD의 원리",
+    "title": "Protein은 여러 시간 척도에서 움직인다",
+    "minutes": 3,
+    "kind": "diagram",
+    "diagram": {
+      "kind": "timescale",
+      "band": {
+        "to": -7,
+        "label": "100 ns simulation이 담는 시간 (≤ 10⁻⁷ s)"
+      },
+      "bars": [
+        {
+          "label": "bond vibration",
+          "from": -15,
+          "to": -13
+        },
+        {
+          "label": "side chain 회전 (rotamer · methyl 회전)",
+          "from": -12,
+          "to": -9
+        },
+        {
+          "label": "loop motion",
+          "from": -9,
+          "to": -6
+        },
+        {
+          "label": "domain motion (더 느릴 수도)",
+          "from": -6,
+          "to": -3
+        }
+      ]
+    },
+    "body": [
+      "작은 local motion일수록 빠르고 큰 collective motion일수록 느립니다. 막대 경계는 대략적이며 서로 겹칩니다."
+    ],
+    "caption": "막대: Henzler-Wildman & Kern (2007) Fig. 1b를 단순화한 대략적 범위 · 음영: 100 ns = 10⁻⁷ s",
+    "notes": "Henzler-Wildman과 Kern(2007) Fig. 1b를 단순화한 그림입니다. bond vibration은 fs, side chain의 회전(rotamer라 부르는 회전 상태 사이의 변화, methyl group 회전)은 ps–ns, loop motion은 ns에서 µs 쪽, domain motion은 µs–ms 또는 그보다 느린 범위에 놓입니다. 작은 local motion일수록 빠르고 큰 collective motion일수록 느리다는 경향만 기억하게 합니다. 막대 경계는 대략적이며 protein과 조건에 따라 달라지고 서로 겹칩니다. 음영은 100 ns simulation이 담는 시간 범위입니다. 빠른 운동은 이 안에서 여러 번 일어나지만 µs–ms 운동은 한 번도 일어나지 않을 수 있다는 점을 바로 뒤 실습과 연결합니다.",
+    "sources": [
+      "HWK2007"
+    ]
+  },
+  {
+    "id": 4,
+    "section": "MD의 원리",
+    "title": "Force field: atom 사이의 force를 정하는 근사식",
+    "minutes": 3,
+    "kind": "table",
+    "table": {
+      "headers": [
+        "항",
+        "무엇을 표현하나",
+        "1강에서 본 예"
+      ],
+      "rows": [
+        [
+          "bond length",
+          "공유결합 길이가 늘고 줄기",
+          "공유결합"
+        ],
+        [
+          "bond angle",
+          "세 atom이 이루는 각도",
+          "공유결합의 각도"
+        ],
+        [
+          "dihedral",
+          "결합 축을 중심으로 한 회전",
+          "side chain의 방향"
+        ],
+        [
+          "van der Waals",
+          "너무 가까우면 반발, 조금 떨어지면 약한 인력",
+          "Leu718의 비극성 접촉"
+        ],
+        [
+          "electrostatic",
+          "charge · partial charge 사이의 인력과 반발",
+          "Met793의 hydrogen bond"
+        ]
+      ],
+      "widths": [
+        2.4,
+        6.0,
+        3.6
+      ]
+    },
+    "body": [
+      "위 세 줄 = bonded, 아래 두 줄 = nonbonded. 다섯 항의 합 = potential energy",
+      "parameter는 양자역학(QM) 계산과 실험에 맞춘 근사 (예: AMBER, CHARMM, OPLS)",
+      "classical MD에서는 공유결합이 끊어지거나 새로 생기지 않습니다."
+    ],
+    "notes": "force field는 atom 배치에 따른 potential energy를 계산하는 식과 parameter의 묶음입니다. 공유결합으로 이어진 atom 사이에는 bond length, bond angle, dihedral 항을 쓰고, 떨어진 atom 사이에는 van der Waals와 electrostatic 항을 씁니다. 1강에서 본 Leu718의 비극성 접촉은 주로 van der Waals 항으로 표현됩니다. AMBER·CHARMM 같은 force field에는 hydrogen bond만을 위한 항이 따로 없고, Met793의 hydrogen bond는 partial charge 사이의 electrostatic과 van der Waals 항으로 표현됩니다. parameter는 quantum-mechanical 계산과 실험 데이터에 맞춘 근사이므로 force field마다 결과가 조금씩 다를 수 있습니다. classical MD에서는 공유결합이 끊어지거나 새로 생기지 않으므로 화학 반응은 다루지 않습니다.",
+    "sources": [
+      "HD2018"
+    ]
+  },
+  {
+    "id": 5,
+    "section": "MD의 원리",
+    "title": "MD의 기본 반복: force를 계산하고 조금 움직인다",
+    "minutes": 3,
+    "kind": "diagram",
+    "diagram": {
+      "kind": "md_loop",
+      "steps": [
+        "① 현재\ncoordinates\n+ velocities",
+        "② force 계산\n(force field)",
+        "③ F = m·a\n→ 가속도",
+        "④ Δt 뒤 새\ncoordinates\n+ velocities"
+      ],
+      "repeat": "④ 다음 다시 ① · 수백만 번 이상 반복"
+    },
+    "body": [
+      "Δt = time step. 가장 빠른 bond vibration을 따라가도록 몇 fs로 짧게 잡습니다.",
+      "일정 간격으로 저장한 coordinates = frame · frame의 시간 순서 = trajectory",
+      "같은 조건이어도 시작 velocities가 다르면 trajectory가 달라집니다.",
+      "replica = 시작 velocities만 바꿔 같은 조건으로 되풀이한 계산"
+    ],
+    "notes": "MD는 atom마다 위치와 속도를 가진 상태에서 시작합니다. force field로 모든 atom에 걸리는 force를 계산하고, Newton 법칙 F = m·a로 가속도를 구한 뒤 아주 짧은 time step만큼 위치와 속도를 갱신합니다. 이 과정을 수백만 번 이상 반복하고 일정 간격으로 좌표를 저장하면 frame이 쌓여 trajectory가 됩니다. time step은 가장 빠른 bond vibration을 놓치지 않도록 몇 fs로 잡습니다. 시작 velocities는 보통 목표 temperature에 맞춰 무작위로 정하므로 같은 structure에서 출발해도 trajectory마다 경로가 달라집니다. 이렇게 시작 velocities만 바꿔 되풀이한 계산을 replica라고 부르며, 이 점이 뒤에서 replica를 여러 번 돌려야 하는 이유가 됩니다.",
+    "sources": [
+      "HD2018",
+      "GMX_TUT"
+    ]
+  },
+  {
+    "id": 6,
+    "section": "계산 준비",
+    "title": "계산 상자 만들기: protein + water + ion",
+    "minutes": 3,
+    "kind": "table",
+    "table": {
+      "headers": [
+        "준비",
+        "무엇을 하나",
+        "왜 필요한가"
+      ],
+      "rows": [
+        [
+          "structure 점검",
+          "빠진 atom · residue, hydrogen, ligand 확인",
+          "force field가 모든 atom의 parameter를 알아야 계산 가능"
+        ],
+        [
+          "box",
+          "protein을 가운데 두고 벽에서 1.0 nm 이상",
+          "periodic image끼리 2.0 nm 이상 → 자기 image와 상호작용 방지"
+        ],
+        [
+          "water",
+          "force field에 맞는 water model로 채움",
+          "물속 환경 (예: 물 분자를 점 3개로 나타낸 3-point model)"
+        ],
+        [
+          "ion",
+          "Na⁺ · Cl⁻ 추가",
+          "전체 charge를 0으로 맞춤"
+        ]
+      ],
+      "widths": [
+        2.4,
+        4.6,
+        5.0
+      ]
+    },
+    "body": [
+      "periodic boundary condition: 상자가 사방으로 반복된다고 보고 벽의 영향을 없앱니다.",
+      "ligand(예: gefitinib)는 force field parameter를 따로 준비해야 합니다."
+    ],
+    "notes": "실제 계산 전에 system을 만듭니다. structure에 빠진 atom·residue가 있거나 hydrogen이 없으면 force field parameter를 붙일 수 없습니다. 2ITY처럼 약물이 있으면 ligand parameter를 따로 준비해야 합니다. Lemkul의 lysozyme 튜토리얼은 protein만 다루고, protein–ligand complex는 별도 튜토리얼에서 ligand parameter를 만듭니다. GROMACS 공식 튜토리얼은 protein을 가운데 두고 box 벽에서 1.0 nm 이상 띄웁니다. periodic boundary condition에서는 상자가 사방으로 복제되므로 이웃한 image 사이가 2.0 nm 이상이 되어 nonbonded cut-off(1.2 nm)보다 멀어지고, protein이 자기 복제본과 상호작용하지 않습니다. Lemkul 튜토리얼은 1.2 nm(image 사이 2.4 nm)를 씁니다. water model은 선택한 force field와 함께 쓰도록 만들어진 것을 고릅니다. 두 튜토리얼이 쓰는 spc216.gro는 SPC·SPC/E·TIP3P 같은 3-point water model에 함께 쓰는 좌표입니다. 마지막으로 Na⁺·Cl⁻를 넣어 전체 charge를 0으로 맞춥니다.",
+    "sources": [
+      "GMX_TUT",
+      "MDTUT",
+      "LEMKUL2019"
+    ]
+  },
+  {
+    "id": 7,
+    "section": "계산 준비",
+    "title": "NVT와 NPT: 계산 중 무엇을 일정하게 두나",
+    "minutes": 3,
+    "kind": "table",
+    "table": {
+      "headers": [
+        "글자",
+        "뜻",
+        "MD에서 일정하게 두는 방법"
+      ],
+      "rows": [
+        [
+          "N",
+          "atom 수 (Number)",
+          "계산 중 atom을 더하거나 빼지 않음"
+        ],
+        [
+          "V",
+          "box 부피 (Volume)",
+          "box 크기를 고정"
+        ],
+        [
+          "T",
+          "temperature\n(atom이 움직이는 빠르기)",
+          "thermostat가 atom velocities를 조절\n→ 목표값 예: 300 K"
+        ],
+        [
+          "P",
+          "pressure\n(atom의 움직임과 서로 미는 힘)",
+          "barostat가 box 크기를 조절\n→ 목표값 예: 1 bar"
+        ]
+      ],
+      "widths": [
+        1.2,
+        4.6,
+        6.2
+      ]
+    },
+    "body": [
+      "NVT (canonical): N·V·T 일정 → box 크기는 그대로 두고 temperature를 맞춤",
+      "NPT (isothermal-isobaric): N·P·T 일정 → box 크기와 density가 맞춰짐 · 실험 조건에 가장 가까움"
+    ],
+    "notes": "NVT와 NPT는 계산하는 동안 일정하게 유지하는 양의 머리글자입니다. N은 atom 수, V는 box 부피, T는 temperature, P는 pressure입니다. 튜토리얼은 이런 계산 조건을 ensemble이라고 부르며, NVT는 canonical(isothermal-isochoric), NPT는 isothermal-isobaric ensemble이라고도 합니다. 이 수업에서는 '무엇을 일정하게 두고 계산하는가'로 이해하면 충분합니다. MD에서 temperature는 atom들이 움직이는 빠르기, 즉 kinetic energy로부터 계산합니다. thermostat는 이 temperature가 목표값에 맞도록 atom velocities를 조정합니다. pressure는 atom의 움직임과 atom 사이 force로 계산하며, barostat는 평균 pressure가 목표값에 맞도록 box 크기를 조금씩 늘리거나 줄입니다. 그래서 NVT에서는 box 크기가 고정되고, NPT에서는 box 크기와 density가 변하다가 안정됩니다. 실험은 보통 일정한 온도와 압력에서 하므로 튜토리얼은 NPT가 실험 조건에 가장 가깝다고 설명합니다. 두 튜토리얼 모두 thermostat로 V-rescale, barostat로 C-rescale(stochastic cell rescaling)을 씁니다. 목표값은 GROMACS 공식 튜토리얼이 300 K, Lemkul 튜토리얼이 298 K와 1 bar입니다.",
+    "sources": [
+      "GMX_TUT",
+      "MDTUT"
+    ]
+  },
+  {
+    "id": 8,
+    "section": "계산 준비",
+    "title": "준비 4단계: EM → NVT → NPT → production",
+    "minutes": 4,
+    "kind": "table",
+    "table": {
+      "headers": [
+        "단계",
+        "하는 일",
+        "확인할 값"
+      ],
+      "rows": [
+        [
+          "EM (energy minimization)",
+          "불리한 접촉을 풀어 energy를 낮춤 (시간 진행 없음)",
+          "potential energy 감소 · 최대 force < 기준값"
+        ],
+        [
+          "NVT equilibration",
+          "protein에 position restraints · temperature 맞추기 (튜토리얼 100 ps)",
+          "temperature가 목표값 근처에서 안정"
+        ],
+        [
+          "NPT equilibration",
+          "restraints 유지 · pressure 맞추기 · density 안정",
+          "pressure 평균 (요동 큼) · density"
+        ],
+        [
+          "production",
+          "restraints 해제 · 분석할 trajectory 저장",
+          "저장된 trajectory → 뒤에서 분석"
+        ]
+      ],
+      "widths": [
+        2.8,
+        5.2,
+        4.0
+      ]
+    },
+    "body": [
+      "position restraints: protein의 heavy atom(hydrogen 외 atom)을 시작 위치 근처에 붙잡아 water · ion이 먼저 자리 잡게 함",
+      "GROMACS: 설정 파일(mdp)에 define = -DPOSRES, 준비 명령 grompp의 -r 옵션으로 기준 좌표 지정"
+    ],
+    "notes": "튜토리얼 순서를 따라 네 단계를 설명합니다. EM은 시간을 진행시키지 않고 energy가 낮아지는 방향으로 좌표를 조정해 너무 가까운 접촉을 풉니다. Lemkul 튜토리얼은 potential energy가 음수이고 (물속의 작은 protein이라면) 크기가 10⁵–10⁶ 규모인지, 최대 force가 기준값(emtol) 아래로 내려왔는지 확인하게 합니다. NVT에서는 protein heavy atom에 position restraints를 걸고 temperature를 목표값에 맞춥니다. 목표값은 GROMACS 공식 튜토리얼이 300 K, Lemkul 튜토리얼이 298 K입니다. NPT에서는 restraints를 유지한 채 pressure를 1 bar에 맞추고 density가 안정되는지 봅니다. Lemkul 튜토리얼의 예에서 pressure 평균은 −3 ± 11 bar로 요동이 커서 1 bar와 통계적으로 구별되지 않으므로, density가 안정되었는지를 함께 봅니다. production에서는 restraints를 풀고 분석할 trajectory를 저장합니다. Lemkul 튜토리얼의 mdp는 NVT 100 ps, NPT 500 ps이며, 실습 자료의 mdp 값은 실습에서 직접 확인합니다.",
+    "sources": [
+      "GMX_TUT",
+      "MDTUT",
+      "LEMKUL2019"
+    ]
+  },
+  {
+    "id": 9,
+    "section": "계산 준비",
+    "title": "바로 실습 ① · 계산 길이를 step 수로 바꾸기",
+    "minutes": 3,
+    "kind": "activity",
+    "body": [],
+    "worksheet": {
+      "data_title": "time step Δt = 2 fs",
+      "table": {
+        "headers": [
+          "계산 길이",
+          "필요한 step 수"
+        ],
+        "rows": [
+          [
+            "NVT 100 ps (튜토리얼 예)",
+            "____"
+          ],
+          [
+            "1 ns",
+            "____"
+          ],
+          [
+            "100 ns",
+            "____"
+          ],
+          [
+            "1 µs",
+            "____"
+          ]
+        ],
+        "widths": [
+          6.0,
+          6.0
+        ]
+      },
+      "questions": [
+        "① 표의 step 수를 채우세요.",
+        "② µs–ms에 일어나는 domain motion이 100 ns simulation에서 보이지 않았다면, 그 운동이 없다고 말할 수 있나요?"
+      ],
+      "caption": "단위: 1 ps = 1,000 fs · 1 ns = 1,000 ps · 1 µs = 1,000 ns"
+    },
+    "notes": "1분 동안 계산하고 1분 동안 옆 사람과 답을 맞춥니다. 1 ps = 1,000 fs이므로 100 ps는 100,000 fs입니다. 2번 문항은 3번 슬라이드의 시간 척도 그림을 다시 보며 답하게 합니다. 정답은 다음 슬라이드에 있습니다.",
+    "sources": [
+      "MDTUT",
+      "HWK2007"
+    ]
+  },
+  {
+    "id": 10,
+    "section": "계산 준비 · 정답과 해설",
+    "title": "정답·해설 ① · 1 µs는 5억 step",
+    "minutes": 2,
+    "kind": "table",
+    "answer_for": 9,
+    "table": {
+      "headers": [
+        "계산 길이",
+        "fs로 바꾸기",
+        "÷ 2 fs = step 수"
+      ],
+      "rows": [
+        [
+          "100 ps",
+          "100,000 fs",
+          "50,000"
+        ],
+        [
+          "1 ns",
+          "1,000,000 fs",
+          "500,000"
+        ],
+        [
+          "100 ns",
+          "10⁸ fs",
+          "5 × 10⁷"
+        ],
+        [
+          "1 µs",
+          "10⁹ fs",
+          "5 × 10⁸ (5억)"
+        ]
+      ],
+      "widths": [
+        3.0,
+        4.2,
+        4.8
+      ]
+    },
+    "body": [
+      "Lemkul 튜토리얼 NVT: nsteps(step 수) = 50000, dt(time step) = 0.002 ps → 100 ps",
+      "② 없다고 말할 수 없습니다. 100 ns는 µs–ms 운동보다 짧습니다. ‘이 길이에서는 관찰되지 않았다’로 씁니다."
+    ],
+    "notes": "Lemkul GROMACS 튜토리얼의 NVT 설정(nvt.mdp)은 nsteps = 50000, dt = 0.002 ps로 100 ps입니다. 같은 time step으로 1 µs를 계산하려면 5억 step이 필요합니다. step마다 모든 atom의 force를 다시 계산하므로 계산 길이는 컴퓨터 시간과 직접 연결됩니다. 100 ns simulation에서 domain motion이 보이지 않았다면 '없다'가 아니라 '이 길이에서는 관찰되지 않았다'고 써야 합니다. 느린 운동을 다루는 방법(더 긴 계산, 여러 replica, enhanced sampling)은 이름만 소개하고 넘어갑니다.",
+    "sources": [
+      "MDTUT",
+      "HWK2007",
+      "HD2018"
+    ]
+  },
+  {
+    "id": 11,
+    "section": "계산 준비",
+    "title": "왜 NVT 다음에 NPT인가?",
+    "minutes": 2,
+    "kind": "text",
+    "body": [
+      "NVT: volume을 고정한 채 temperature부터 안정시킵니다.",
+      "NPT: temperature가 안정된 뒤 barostat가 volume과 density를 조정합니다.",
+      "각 단계는 앞 단계의 마지막 coordinates · velocities를 checkpoint로 이어받습니다. (예: -t nvt.cpt)",
+      "준비 없이 restraints를 풀고 바로 시작하면 system이 무너질(collapse) 수 있습니다."
+    ],
+    "notes": "두 튜토리얼 모두 equilibration을 두 단계로 나눕니다. volume을 고정한 NVT에서 thermostat로 temperature를 목표값에 맞춰 안정시킨 뒤, NPT에서 barostat가 box 크기를 조정해 pressure와 density를 안정시킵니다. 각 단계는 앞 단계의 마지막 상태를 checkpoint 파일로 이어받습니다(GROMACS grompp의 -t 옵션, mdp의 continuation = yes). Lemkul 튜토리얼은 EM 직후 restraints 없이 dynamics를 시작하면 system이 무너질 수 있다고 설명합니다. water는 자기들끼리는 최적화되어 있지만 protein 주변에는 아직 맞춰지지 않았기 때문입니다. 순서를 '먼저 temperature, 다음 pressure와 density'로 요약하게 합니다.",
+    "sources": [
+      "MDTUT",
+      "LEMKUL2019",
+      "GMX_TUT"
+    ]
+  },
+  {
+    "id": 12,
+    "section": "계산 준비",
+    "title": "바로 실습 ② · 단계 순서와 확인 값 짝짓기",
+    "minutes": 2,
+    "kind": "activity",
+    "body": [],
+    "worksheet": {
+      "data_title": "섞여 있는 단계와 확인 값",
+      "table": {
+        "headers": [
+          "단계",
+          "확인 값"
+        ],
+        "rows": [
+          [
+            "A. NPT equilibration",
+            "(가) temperature가 300 K 근처에서 안정"
+          ],
+          [
+            "B. production",
+            "(나) potential energy 감소 · 최대 force < 기준값"
+          ],
+          [
+            "C. EM",
+            "(다) pressure 평균과 density가 안정"
+          ],
+          [
+            "D. NVT equilibration",
+            "(라) restraints 없이 분석용 trajectory 저장"
+          ]
+        ],
+        "widths": [
+          4.2,
+          7.8
+        ]
+      },
+      "questions": [
+        "① A–D를 실행 순서대로 쓰세요.",
+        "② 각 단계에 맞는 확인 값 (가)–(라)를 짝지으세요.",
+        "③ NVT · NPT에서 protein에 position restraints를 거는 이유는?"
+      ]
+    },
+    "notes": "섞어 놓은 단계와 확인 값을 연결하는 1분 활동입니다. 먼저 순서를 쓰게 하고, 다음으로 각 단계에서 어떤 그래프를 볼지 짝짓게 합니다. 실습에서는 단계가 끝날 때마다 이 값을 그래프로 확인한다고 알려 줍니다. 3번은 restraints가 무엇을 붙잡고 무엇을 자유롭게 두는지 말로 설명하게 합니다.",
+    "sources": [
+      "MDTUT",
+      "LEMKUL2019"
+    ]
+  },
+  {
+    "id": 13,
+    "section": "계산 준비 · 정답과 해설",
+    "title": "정답·해설 ② · C → D → A → B",
+    "minutes": 1,
+    "kind": "table",
+    "answer_for": 12,
+    "table": {
+      "headers": [
+        "순서",
+        "단계",
+        "확인 값"
+      ],
+      "rows": [
+        [
+          "1",
+          "C. EM",
+          "(나) potential energy 감소 · 최대 force < 기준값"
+        ],
+        [
+          "2",
+          "D. NVT",
+          "(가) temperature 안정"
+        ],
+        [
+          "3",
+          "A. NPT",
+          "(다) pressure 평균 · density 안정"
+        ],
+        [
+          "4",
+          "B. production",
+          "(라) 분석용 trajectory"
+        ]
+      ],
+      "widths": [
+        1.2,
+        3.4,
+        7.4
+      ]
+    },
+    "body": [
+      "③ water · ion이 protein 주변에 먼저 자리 잡는 동안 시작 structure가 흐트러지지 않게 하려고"
+    ],
+    "notes": "정답은 C(EM) → D(NVT) → A(NPT) → B(production)입니다. EM은 potential energy와 최대 force, NVT는 temperature, NPT는 pressure 평균과 density, production은 분석용 trajectory와 짝입니다. position restraints는 protein heavy atom을 시작 위치 근처에 붙잡아 두고 water와 ion이 주변에 먼저 자리 잡게 합니다. production에서는 restraints를 풀어야 protein 자체의 움직임을 관찰할 수 있습니다.",
+    "sources": [
+      "MDTUT",
+      "LEMKUL2019"
+    ]
+  },
+  {
+    "id": 14,
+    "section": "결과 읽기",
+    "title": "RMSD: 기준 structure에서 얼마나 달라졌나",
+    "minutes": 4,
+    "kind": "chart",
+    "chart": {
+      "x_title": "time (ns)",
+      "y_title": "backbone RMSD (Å)",
+      "x": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75,
+        80,
+        85,
+        90,
+        95,
+        100
+      ],
+      "x_scale": [
+        0,
+        100,
+        20
+      ],
+      "y_scale": [
+        0,
+        3.5,
+        0.5
+      ],
+      "series": [
+        {
+          "name": "replica 1",
+          "color": "277F87",
+          "values": [
+            0.0,
+            1.1,
+            1.3,
+            1.4,
+            1.5,
+            1.4,
+            1.5,
+            1.6,
+            1.5,
+            1.5,
+            1.6,
+            1.5,
+            1.6,
+            1.5,
+            1.6,
+            1.6,
+            1.5,
+            1.6,
+            1.6,
+            1.5,
+            1.6
+          ]
+        },
+        {
+          "name": "replica 2",
+          "color": "8FA3AD",
+          "values": [
+            0.0,
+            1.0,
+            1.4,
+            1.5,
+            1.6,
+            1.7,
+            1.6,
+            1.7,
+            1.8,
+            1.7,
+            1.7,
+            1.8,
+            1.7,
+            1.8,
+            1.7,
+            1.8,
+            1.8,
+            1.7,
+            1.8,
+            1.8,
+            1.7
+          ]
+        },
+        {
+          "name": "replica 3",
+          "color": "BF570C",
+          "values": [
+            0.0,
+            1.2,
+            1.4,
+            1.5,
+            1.5,
+            1.6,
+            1.5,
+            1.6,
+            1.6,
+            1.5,
+            1.6,
+            1.6,
+            2.4,
+            2.8,
+            2.9,
+            2.8,
+            2.9,
+            3.0,
+            2.9,
+            2.9,
+            3.0
+          ]
+        }
+      ]
+    },
+    "body": [
+      "frame마다 기준 structure에 fit(이동 · 회전 제거) → 대응 atom 거리의 root-mean-square",
+      "평평함 = 기준에 대해 안정. 수렴(더 계산해도 결과가 그대로)의 증거는 아님 (replica 3은 55 ns 뒤 변함)"
+    ],
+    "caption": "가상 교육용 데이터 · 같은 조건 replica 3개 · GROMACS 출력 단위는 nm (0.15 nm = 1.5 Å)",
+    "notes": "RMSD는 각 frame을 기준 structure에 least-squares fit으로 겹쳐 전체 이동과 회전을 없앤 뒤, 대응 atom 사이 거리의 제곱 평균의 제곱근을 구한 값입니다. GROMACS gmx rms는 fit에 쓰는 group과 RMSD를 계산하는 group을 따로 고를 수 있으므로, 예를 들어 backbone으로 겹치고 ligand의 RMSD를 볼 수 있습니다. 그래프는 가상 교육용 데이터입니다. replica 1과 2는 약 1.5–1.8 Å에서 평평하고, replica 3은 55 ns까지 비슷하다가 그 뒤 약 3 Å로 이동합니다. 평평한 RMSD는 기준 structure에 대해 안정했다는 뜻일 뿐이며, 서로 다른 conformation도 비슷한 RMSD를 가질 수 있어 수렴의 증거로는 부족합니다. GROMACS 출력 단위는 nm이므로 실습에서 0.15 nm = 1.5 Å로 바꿔 읽습니다.",
+    "sources": [
+      "GMX_RMSD",
+      "GROSSFIELD2018"
+    ]
+  },
+  {
+    "id": 15,
+    "section": "결과 읽기",
+    "title": "RMSF: residue마다 얼마나 흔들렸나",
+    "minutes": 3,
+    "kind": "chart",
+    "chart": {
+      "x_title": "residue number",
+      "y_title": "RMSF (Å)",
+      "x_scale": [
+        0,
+        40,
+        5
+      ],
+      "y_scale": [
+        0,
+        3.5,
+        0.5
+      ],
+      "height": 3.15,
+      "markers": true,
+      "series": [
+        {
+          "name": "RMSF",
+          "color": "277F87",
+          "values": [
+            3.1,
+            2.2,
+            1.4,
+            1.0,
+            0.8,
+            0.7,
+            0.6,
+            0.6,
+            0.7,
+            0.8,
+            0.7,
+            0.6,
+            0.6,
+            0.7,
+            0.9,
+            1.2,
+            1.7,
+            2.3,
+            2.6,
+            2.4,
+            1.9,
+            1.3,
+            0.9,
+            0.7,
+            0.6,
+            0.6,
+            0.7,
+            0.6,
+            0.6,
+            0.7,
+            0.8,
+            0.7,
+            0.6,
+            0.7,
+            0.8,
+            1.0,
+            1.3,
+            1.8,
+            2.5,
+            3.3
+          ]
+        }
+      ]
+    },
+    "body": [
+      "RMSF: 시간 평균 위치에서 벗어난 정도(표준편차) · 말단과 loop에서 큰 경우가 많음",
+      "gmx rmsf -oq: B = (8π²/3)·RMSF² → B-factor 칸 (1강 mmCIF의 B_iso_or_equiv)",
+      "2강 pLDDT는 예측 confidence입니다. RMSF와 관련될 수 있어도 같은 양이 아닙니다."
+    ],
+    "caption": "가상 교육용 데이터 · 40 residue · 17–21번 loop와 양 끝이 크게 흔들리는 예",
+    "notes": "RMSF는 trajectory에서 각 atom 위치가 시간 평균 위치로부터 얼마나 벗어나는지를 나타내는 표준편차입니다. residue 단위로는 흔히 Cα나 residue 평균을 그립니다. 가상 그래프에서는 양 끝과 17–21번 loop가 크게 흔들립니다. gmx rmsf의 -oq 옵션은 B = (8π²/3)·RMSF² 식으로 B-factor 값을 계산해 PDB 파일의 B-factor 칸에 기록하므로, 1강에서 읽은 mmCIF의 B_iso_or_equiv와 같은 칸에서 비교할 수 있습니다. 다만 crystal B-factor에는 격자 안의 disorder와 모델링 오차도 섞여 있어 숫자가 그대로 같지는 않습니다. 2강의 pLDDT는 예측 structure의 local confidence이고, RMSF는 simulation 중 계산된 흔들림입니다. 두 값은 관련될 수 있어도 같은 양이 아닙니다.",
+    "sources": [
+      "GMX_RMSF",
+      "AF_CONF"
+    ]
+  },
+  {
+    "id": 16,
+    "section": "결과 읽기",
+    "title": "거리와 H-bond: 한 장의 값에서 시간에 따른 분포로",
+    "minutes": 3,
+    "kind": "table",
+    "table": {
+      "headers": [
+        "측정",
+        "정의",
+        "예"
+      ],
+      "rows": [
+        [
+          "distance",
+          "두 atom 사이 거리를 frame마다 계산",
+          "Met793 N – gefitinib N3\n(crystal 2.670 Å)"
+        ],
+        [
+          "H-bond 판정",
+          "donor(주개)–acceptor(받개) ≤ 0.35 nm (3.5 Å)\n그리고 H–donor–acceptor 각도 ≤ 30°",
+          "GROMACS gmx hbond 기본값"
+        ],
+        [
+          "occupancy",
+          "조건을 만족한 frame 수 ÷ 전체 frame 수",
+          "45 / 60 frame → 75%"
+        ]
+      ],
+      "widths": [
+        2.4,
+        5.8,
+        3.8
+      ]
+    },
+    "body": [
+      "기준(거리 · 각도)을 바꾸면 occupancy도 바뀝니다. 결과와 함께 기준을 적습니다."
+    ],
+    "notes": "1강에서는 거리를 한 번 쟀지만, trajectory에서는 frame마다 같은 atom 쌍의 거리를 다시 잽니다. H-bond 판정에는 거리와 각도 기준이 필요합니다. donor와 acceptor는 1강에서 배운 수소결합의 주개와 받개입니다. GROMACS gmx hbond의 기본값은 donor–acceptor 거리 0.35 nm, hydrogen–donor–acceptor 각도 30°입니다. 기준을 만족한 frame의 비율이 occupancy입니다. 프로그램마다 기본 기준이 다르고 기준을 바꾸면 occupancy도 바뀌므로 결과와 함께 기준을 적게 합니다.",
+    "sources": [
+      "GMX_HBOND",
+      "PDB2ITY",
+      "YUN2007"
+    ]
+  },
+  {
+    "id": 17,
+    "section": "결과 읽기",
+    "title": "바로 실습 ③ · 10 frame으로 H-bond occupancy 계산",
+    "minutes": 3,
+    "kind": "activity",
+    "body": [],
+    "worksheet": {
+      "data_title": "Met793 N – gefitinib N3 · 가상 10 frame",
+      "table": {
+        "headers": [
+          "frame",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10"
+        ],
+        "rows": [
+          [
+            "거리 Å",
+            "2.8",
+            "2.9",
+            "3.1",
+            "2.7",
+            "3.6",
+            "3.0",
+            "4.2",
+            "2.9",
+            "3.3",
+            "2.8"
+          ],
+          [
+            "각도 °",
+            "12",
+            "18",
+            "25",
+            "10",
+            "15",
+            "35",
+            "20",
+            "14",
+            "22",
+            "16"
+          ],
+          [
+            "판정",
+            "__",
+            "__",
+            "__",
+            "__",
+            "__",
+            "__",
+            "__",
+            "__",
+            "__",
+            "__"
+          ]
+        ],
+        "widths": [
+          1.8,
+          1.02,
+          1.02,
+          1.02,
+          1.02,
+          1.02,
+          1.02,
+          1.02,
+          1.02,
+          1.02,
+          1.02
+        ],
+        "center": true
+      },
+      "questions": [
+        "① 거리 ≤ 3.5 Å만 적용하면 몇 frame이 H-bond인가요?",
+        "② 각도 ≤ 30°까지 함께 적용하면 occupancy는 몇 %인가요?",
+        "③ 이 값만으로 ‘gefitinib이 강하게 결합한다’고 말할 수 있나요?"
+      ],
+      "caption": "가상 교육용 값 (실제 2ITY simulation 결과 아님) · 기준: GROMACS gmx hbond 기본값"
+    },
+    "hbond_example": {
+      "distance": [
+        2.8,
+        2.9,
+        3.1,
+        2.7,
+        3.6,
+        3.0,
+        4.2,
+        2.9,
+        3.3,
+        2.8
+      ],
+      "angle": [
+        12,
+        18,
+        25,
+        10,
+        15,
+        35,
+        20,
+        14,
+        22,
+        16
+      ],
+      "max_distance": 3.5,
+      "max_angle": 30,
+      "distance_only": 8,
+      "both": 7
+    },
+    "notes": "화면의 가상 10 frame으로 계산합니다. 먼저 거리 기준만 적용하고, 다음으로 각도 기준을 함께 적용해 결과가 어떻게 달라지는지 봅니다. 3번은 1강의 '가깝다는 관찰과 강하게 결합한다는 결론은 다르다'를 떠올리게 합니다. 실제 2ITY simulation 결과가 아닌 교육용 값이며, 기준값과 정확히 같은 값은 넣지 않았습니다.",
+    "sources": [
+      "GMX_HBOND"
+    ]
+  },
+  {
+    "id": 18,
+    "section": "결과 읽기 · 정답과 해설",
+    "title": "정답·해설 ③ · 거리만 8/10, 각도까지 7/10",
+    "minutes": 2,
+    "kind": "table",
+    "answer_for": 17,
+    "table": {
+      "headers": [
+        "frame",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "rows": [
+        [
+          "거리 ≤ 3.5 Å",
+          "O",
+          "O",
+          "O",
+          "O",
+          "X",
+          "O",
+          "X",
+          "O",
+          "O",
+          "O"
+        ],
+        [
+          "각도 ≤ 30°",
+          "O",
+          "O",
+          "O",
+          "O",
+          "O",
+          "X",
+          "O",
+          "O",
+          "O",
+          "O"
+        ],
+        [
+          "H-bond",
+          "O",
+          "O",
+          "O",
+          "O",
+          "X",
+          "X",
+          "X",
+          "O",
+          "O",
+          "O"
+        ]
+      ],
+      "widths": [
+        2.3,
+        0.97,
+        0.97,
+        0.97,
+        0.97,
+        0.97,
+        0.97,
+        0.97,
+        0.97,
+        0.97,
+        0.97
+      ],
+      "center": true,
+      "text_colors": {
+        "1,5": "BF570C",
+        "1,7": "BF570C",
+        "2,6": "BF570C",
+        "3,5": "BF570C",
+        "3,6": "BF570C",
+        "3,7": "BF570C"
+      }
+    },
+    "body": [
+      "① 8 frame: frame 5 (3.6 Å)와 7 (4.2 Å) 제외",
+      "② frame 6은 3.0 Å이지만 35° → 7 / 10 = 70%",
+      "③ 아니요. occupancy는 접촉이 유지된 빈도이지 결합 세기(affinity)가 아닙니다. trajectory 하나의 10 frame이므로 독립 replica로 다시 확인합니다."
+    ],
+    "notes": "거리 기준만 쓰면 frame 5(3.6 Å)와 7(4.2 Å)을 빼고 8 frame입니다. 각도까지 적용하면 frame 6이 3.0 Å이지만 35°여서 빠지므로 7/10, 70%입니다. occupancy는 접촉이 유지된 시간의 비율이지 결합 세기(affinity)가 아닙니다. 연속된 frame은 서로 비슷하므로 10 frame이 10개의 독립 관측은 아닙니다. Knapp 등(2018)은 trajectory 하나에서 본 차이가 통계적으로 유의해 보여도 다시 계산하면 재현되지 않을 수 있다고 보고했습니다. 같은 결론을 독립 replica에서 다시 확인하게 합니다.",
+    "sources": [
+      "GMX_HBOND",
+      "KNAPP2018"
+    ]
+  },
+  {
+    "id": 19,
+    "section": "해석과 한계",
+    "title": "MD로 답할 수 있는 것과 한계",
+    "minutes": 3,
+    "kind": "table",
+    "table": {
+      "headers": [
+        "MD가 주는 것",
+        "함께 적어야 할 한계"
+      ],
+      "rows": [
+        [
+          "접촉 · 거리 · water 배치가 시간에 따라 변하는 모습",
+          "force field는 근사: parameter 선택에 따라 결과가 달라질 수 있음"
+        ],
+        [
+          "residue별 유연성(RMSF)과 conformation 변화 후보",
+          "계산 길이보다 느린 운동은 보이지 않을 수 있음"
+        ],
+        [
+          "변이 · 결합 실험으로 확인할 가설",
+          "trajectory 하나는 우연일 수 있음 → 독립 replica 비교"
+        ],
+        [
+          "conformation 사이를 오가는 경로의 예",
+          "관찰 빈도를 population으로 읽으려면 충분한 sampling 필요"
+        ]
+      ],
+      "widths": [
+        5.6,
+        6.4
+      ]
+    },
+    "body": [
+      "sampling = 가능한 상태를 충분히 방문했는가. 충분한지는 관측량마다 달라서, RMSD가 안정되어도 상태 사이 이동(transition) · population은 아직 수렴하지 않았을 수 있습니다."
+    ],
+    "notes": "MD의 강점과 한계를 짝지어 정리합니다. MD는 접촉, 거리, water 배치, 유연성이 시간에 따라 어떻게 변하는지 보여 주고 실험으로 확인할 가설을 만듭니다. 한계로는 force field 근사, 계산 길이보다 느린 운동, trajectory 하나의 우연성이 있습니다. Grossfield 등(2018)은 sampling이 충분한지를 관측량마다 따로 판단해야 한다고 권합니다. RMSD가 안정되어도 conformation 사이의 transition이나 population은 아직 수렴하지 않았을 수 있습니다. 2강에서 예측 후보의 비율 3/8을 equilibrium population으로 읽지 않았던 것처럼, MD에서 관찰한 frame 빈도도 충분한 sampling 근거 없이 population으로 읽지 않습니다.",
+    "sources": [
+      "HD2018",
+      "KNAPP2018",
+      "GROSSFIELD2018"
+    ]
+  },
+  {
+    "id": 20,
+    "section": "해석과 한계",
+    "title": "최종 활동 · 세 주장을 근거에 맞게 고치기",
+    "minutes": 3,
+    "kind": "activity",
+    "body": [
+      "“RMSD가 20 ns 이후 평평하므로 simulation은 수렴했다.”",
+      "“H-bond occupancy가 70%이므로 gefitinib은 강하게 결합한다.”",
+      "“100 ns 동안 domain이 움직이지 않았으므로 domain motion은 없다.”",
+      "각 주장에 빠진 근거를 한 문장씩 적으세요."
+    ],
+    "notes": "지금까지 배운 판단 기준을 적용하는 활동입니다. 각 주장에서 무엇을 관찰했는지와 무엇을 더 확인해야 하는지를 나누어 한 문장씩 고치게 합니다. 2분 작성 후 두세 명의 답을 듣고 다음 슬라이드로 정리합니다.",
+    "sources": [
+      "GROSSFIELD2018",
+      "HWK2007"
+    ]
+  },
+  {
+    "id": 21,
+    "section": "해석과 한계 · 정답과 해설",
+    "title": "정답·해설 · 관찰한 만큼만 말하기",
+    "minutes": 3,
+    "kind": "table",
+    "answer_for": 20,
+    "table": {
+      "headers": [
+        "원래 주장",
+        "빠진 근거와 고친 설명"
+      ],
+      "rows": [
+        [
+          "RMSD 평평 = 수렴",
+          "기준 structure에 대해 안정했을 뿐. 다른 conformation도 비슷한 RMSD 가능 → 독립 replica와 다른 관측량으로 확인"
+        ],
+        [
+          "occupancy 70% = 강한 결합",
+          "접촉이 유지된 빈도일 뿐 affinity가 아님 (1강: 가깝다 ≠ 강하다). 기준 · frame 수 · replica를 적고 결합 실험으로 확인"
+        ],
+        [
+          "100 ns 동안 없음 = domain motion 없음",
+          "µs–ms 운동은 100 ns로 판단할 수 없음 → ‘이 계산 길이에서는 관찰되지 않았다’"
+        ]
+      ],
+      "widths": [
+        3.8,
+        8.2
+      ]
+    },
+    "body": [
+      "좋은 설명 = 무엇을 쟀나 + 조건(길이 · replica · 기준) + 한계"
+    ],
+    "notes": "첫째, 평평한 RMSD는 기준 structure에 대한 안정성만 말해 줍니다. 수렴을 주장하려면 독립 replica를 비교하고 관심 있는 관측량이 replica 사이에 일치하는지 확인해야 합니다. 둘째, occupancy는 접촉이 유지된 빈도이며 결합 세기는 결합 실험이나 별도의 free energy 계산으로 따져야 합니다. 셋째, µs–ms 운동은 100 ns 계산으로 부정할 수 없습니다. 좋은 설명은 관찰한 양, 계산 조건, 한계를 함께 적습니다.",
+    "sources": [
+      "GROSSFIELD2018",
+      "KNAPP2018",
+      "HWK2007"
+    ]
+  },
+  {
+    "id": 22,
+    "section": "실습 연결",
+    "title": "이제 2시간 실습으로",
+    "minutes": 2,
+    "kind": "table",
+    "table": {
+      "headers": [
+        "실습 순서",
+        "오늘 슬라이드",
+        "확인할 것"
+      ],
+      "rows": [
+        [
+          "1. system 준비",
+          "4 · 6  force field · box · water · ion",
+          "전체 charge 0 · box 크기"
+        ],
+        [
+          "2. EM · NVT · NPT",
+          "7–8 · 11–13  NVT · NPT · 준비 4단계",
+          "potential energy · temperature · pressure · density"
+        ],
+        [
+          "3. production",
+          "5 · 9–10  time step · step 수",
+          "계산 길이 · 저장 간격"
+        ],
+        [
+          "4. 분석",
+          "14–18  RMSD · RMSF · H-bond",
+          "그래프와 판정 기준"
+        ]
+      ],
+      "widths": [
+        2.8,
+        4.9,
+        4.3
+      ]
+    },
+    "body": [
+      "실습 기록: force field · water model · temperature · 계산 길이 · replica 수 · 분석 기준"
+    ],
+    "notes": "실습 순서를 오늘 슬라이드 번호와 연결해 둡니다. 실습 중 막히면 해당 번호의 슬라이드를 다시 보게 합니다. 모든 결과에는 force field, water model, temperature, 계산 길이, replica 수, 분석 기준을 기록하게 합니다. 이 기록이 있어야 다른 사람이 결과를 재현하고 비교할 수 있습니다.",
+    "sources": [
+      "GMX_TUT",
+      "MDTUT"
+    ]
+  },
+  {
+    "id": 23,
+    "section": "실습 연결",
+    "title": "참고 자료",
+    "minutes": 1,
+    "kind": "references",
+    "body": [],
+    "notes": "주요 출처입니다. Hollingsworth & Dror(2018)는 생물학 연구자를 위한 MD 입문 리뷰이고, Lemkul 튜토리얼과 GROMACS 튜토리얼은 실습 절차의 근거입니다. RMSD·RMSF·H-bond 정의는 GROMACS 공식 문서를 따랐습니다. 반복 실행과 sampling 판단은 Knapp 등(2018), Grossfield 등(2018)을 참고했습니다.",
+    "sources": [
+      "HD2018",
+      "HWK2007",
+      "LEMKUL2019",
+      "MDTUT",
+      "GMX_TUT",
+      "GMX_RMSD",
+      "GMX_RMSF",
+      "GMX_HBOND",
+      "GROSSFIELD2018",
+      "KNAPP2018",
+      "AF_CONF",
+      "YUN2007"
+    ]
+  }
+]
